@@ -1,0 +1,25 @@
+<div *ngFor="let prd of prdEdit">
+    <div class="p-fluid">
+        <div class="p-field">
+            <label for="productName">ชื่อสินค้า:</label>
+            <input id="productName" type="text" pInputText [(ngModel)]="edit_prd_name" placeholder="{{prd.material_name}}" />
+        </div>
+        <div class="p-field">
+            <label for="unit">หน่วยนับ:</label>
+            <p-dropdown id="unit" [options]="unitId" [(ngModel)]="selectedUnit" optionLabel="unit_name" placeholder="{{prd.unit_name}}"></p-dropdown>
+        </div>
+        <div class="p-field">
+            <label for="materialType">ประเภทวัสดุ:</label>
+            <p-dropdown id="materialType" [options]="typeId" [(ngModel)]="selectedType" optionLabel="material_type_name" placeholder="{{prd.material_type_name}}"></p-dropdown>
+        </div>
+        <div class="p-field">
+            <label for="materialShelf">ชั้นวาง:</label>
+            <p-dropdown id="materialShelf" [options]="chanWang" [(ngModel)]="selectedchanWang" optionLabel="material_class_shelf_name" placeholder="{{prd.material_class_shelf_name}}"></p-dropdown>
+        </div>
+        <br>
+        <div class="p-field">
+            <button pButton label="บันทึก" icon="pi pi-check"  class="p-button-success" (click)="save_edit_prd()"></button>
+        </div>
+    </div>
+</div>
+<p-toast></p-toast>

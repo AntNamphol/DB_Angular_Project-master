@@ -1,0 +1,66 @@
+.container {
+    margin: 20px;
+}
+
+.summary-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.summary-table td, .summary-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.summary-table th {
+    background-color: #f2f2f2;
+    text-align: center;
+}
+
+.card {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+/* เพิ่ม CSS Media Queries สำหรับ Responsive Design */
+@media screen and (max-width: 768px) {
+    .summary-table td, .summary-table th {
+        padding: 6px;
+    }
+    
+    .summary-table th {
+        font-size: 14px;
+    }
+    
+    .card {
+        padding: 8px;
+        margin-bottom: 15px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .summary-table td, .summary-table th {
+        padding: 4px;
+    }
+    
+    .summary-table th {
+        font-size: 12px;
+    }
+    
+    .card {
+        padding: 6px;
+        margin-bottom: 10px;
+    }
+}
+@media screen and (max-width: 767px) {
+    .text-2xl {
+        font-size: 12px;
+      }
+}
+@media only screen and (max-width: 600px) {
+    .text-2xl {
+        font-size: 12px;
+      }
+}
+

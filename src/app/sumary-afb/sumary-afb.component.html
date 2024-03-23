@@ -1,0 +1,48 @@
+<app-nav-bar></app-nav-bar>
+<br>
+
+<div class="container">
+    <h3>รายการสรุปยอด</h3>
+    <table class="summary-table">
+        <tr>
+            <td colspan="2"><h4>รายปี</h4></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="card">
+                    <p-chart type="bar" [data]="chartData"></p-chart>
+                </div>
+            </td>
+            <td>
+                <div class="card">
+                    <p-chart type="bar" [data]="sumThrid" [options]="SumToption"></p-chart>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><h4>รายเดือน</h4></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="card">
+                    <p-chart type="bar" [data]="chartDataM"></p-chart>
+                </div>
+            </td>
+            <td>
+                <div class="card">
+                    <p-chart type="bar" [data]="chartDataW"></p-chart>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2"><h4>รายวัน</h4></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <div class="card">
+                    <p-chart type="bar" [data]="chartDataD"></p-chart>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

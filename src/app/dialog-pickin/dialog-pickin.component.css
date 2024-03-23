@@ -1,0 +1,13 @@
+.red{
+    color: red;
+}@media screen and (max-width: 767px) {
+    .text-2xl {
+        font-size: 12px;
+      }
+}
+@media only screen and (max-width: 600px) {
+    .text-2xl {
+        font-size: 12px;
+      }
+}
+

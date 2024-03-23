@@ -1,0 +1,29 @@
+@media screen and (max-width: 767px) {
+    .text-2xl {
+        font-size: 12px;
+      }
+      .ui-dialog .ui-dialog-title {
+        font-size: 16px; /* ปรับขนาด font สำหรับหัวข้อ */
+    }
+    .ui-dialog .ui-dialog-content {
+        font-size: 14px; /* ปรับขนาด font สำหรับเนื้อหา */
+    }
+    .ui-dialog .ui-dialog-footer {
+        font-size: 14px; /* ปรับขนาด font สำหรับ footer */
+    }
+}
+@media only screen and (max-width: 600px) {
+    .text-2xl {
+        font-size: 12px;
+      }
+      .ui-dialog .ui-dialog-title {
+        font-size: 16px; /* ปรับขนาด font สำหรับหัวข้อ */
+    }
+    .ui-dialog .ui-dialog-content {
+        font-size: 14px; /* ปรับขนาด font สำหรับเนื้อหา */
+    }
+    .ui-dialog .ui-dialog-footer {
+        font-size: 14px; /* ปรับขนาด font สำหรับ footer */
+    }
+}
+

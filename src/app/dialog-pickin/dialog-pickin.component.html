@@ -1,0 +1,8 @@
+<div *ngFor="let po of pick_items">
+    <div *ngIf="pickin_values > po.item_values" class="red">ใส่จำนวนเกินใบสั่งซื้อ</div>
+    <p-inputNumber inputId="integeronly" [(ngModel)]="pickin_values"  placeholder="{{po.item_values}}"> </p-inputNumber>
+    &nbsp;
+    <button pButton pRipple label="Submit" class="p-button-success" [disabled]="pickin_values > po.item_values" (click)="save(po,$event)"></button>
+</div>
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>

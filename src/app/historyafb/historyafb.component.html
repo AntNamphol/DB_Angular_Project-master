@@ -1,0 +1,67 @@
+
+
+  <app-nav-bar></app-nav-bar>
+<br>
+<div class="container">
+    <div class="card">
+      <div class="card-header">
+        <table>
+            <tr>
+                <td>
+                    <h3>ใบขอซื้อสินค้าของท่าน</h3>
+                </td>
+                <td>
+                   
+                </td>
+            </tr>
+        </table>
+       
+        
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+            
+          <p-table [value]="afbData" responsiveLayout="stack" [breakpoint]="'960px'" [tableStyle]="{'min-width': '50rem'}">
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th>เลขที่ใบขอซื้อ</th>
+                <th>ผู้ขอซื้อ</th>
+                <th>ฝ่าย</th>
+                <th>หมายเหตุ</th>
+                <th>วันที่</th>
+                <th>สถานะ</th>
+                <th>การจัดการ</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-afbItem let-columns="columns">
+              <tr>
+                <td>เลขที่ใบขอซื้อ:{{ afbItem.afb_from_id }}</td>
+                    <td>ผู้ขอซื้อ:{{ afbItem.user_fullname }}</td>
+                    <td>ฝ่าย:{{ afbItem.userdepart_name}}</td>
+                    <td>หมายเหตุ:{{ afbItem.afb_comment }}</td>
+                    <td>วันที่:{{ afbItem.afb_date }}</td>
+                    <td [ngClass]="{'text-warning': afbItem.state_id == 1 || afbItem.state_id == 5 || afbItem.state_id == 11, 'text-success': afbItem.state_id == 2 || afbItem.state_id == 10,'text-danger': afbItem.state_id == 3}">
+                      สถานะ:
+                      <ng-container *ngIf="afbItem.state_id == 1">รออนุมัติ/จากหัวหน้าฝ่าย</ng-container>
+                      <ng-container *ngIf="afbItem.state_id == 2">อนุมัติจากหัวหน้าฝ่ายแล้ว</ng-container>
+                      <ng-container *ngIf="afbItem.state_id == 3">ใบขอซื้อถูกยกเลิก</ng-container>
+                      <ng-container *ngIf="afbItem.state_id == 5">สั่งซื้อแล้ว / รอตรวจรับ</ng-container>
+                      <ng-container *ngIf="afbItem.state_id == 10">ตรวจรับแล้ว / ครบถ้วน</ng-container>
+                      <ng-container *ngIf="afbItem.state_id == 11">ตรวจรับแล้ว / ยังไม่ครบถ้วน</ng-container>
+                    </td>
+                  
+                  <td>
+                    <button *ngIf="afbItem.state_id == 1 && userLv == 1" pButton pRipple label="ตรวจสอบเพื่ออนุมัติ" class="p-button-success" (click)="approveButtonClicked(afbItem.afb_from_id)"></button>
+                    <button *ngIf="afbItem.state_id == 1 && userLv != 1" pButton pRipple label="รายละเอียด" class="p-button-info" (click)="approveButtonClicked(afbItem.afb_from_id)"></button>
+                    <button *ngIf="afbItem.state_id >= 2" pButton pRipple label="รายละเอียด" class="p-button-info" (click)="detailButtonClicked(afbItem.afb_from_id)"></button>
+                   
+                  </td>
+                  
+              </tr>
+            </ng-template>
+          </p-table>
+          
+        </div>
+      </div>
+    </div>
+  </div>

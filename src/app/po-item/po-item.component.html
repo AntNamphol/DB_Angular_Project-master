@@ -1,0 +1,109 @@
+<app-nav-bar></app-nav-bar>
+<br>
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
+<table>
+    <tr>
+        <td>
+            <h2>เพิ่มใบสั่งซื้อสินค้า</h2>
+        </td>
+        <td>
+            <p-button label="เลือกใบขอซื้อ" icon="pi pi-plus" (click)="showDialog()"></p-button>
+        </td>
+    </tr>
+</table>
+
+<p-dialog header="เลือกใบขอซื้อสินค้า เพื่อสั่งซื้อ" [(visible)]="visible" [style]="{width: '70vw',height:'500px'}">
+    <p-table [value]="afborder" responsiveLayout="stack" [breakpoint]="'960px'">
+        <ng-template pTemplate="header" let-colums>
+          <tr>
+            <th>เลขที่ใบขอซื้อ</th>
+            <th>ผู้ขอซื้อ</th>
+            <th>ฝ่าย</th>
+            <th>หมายเหตุ</th>
+            <th>วันที่</th>
+            <th>สถานะ</th>
+            <th>การจัดการ</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-afbItem let-colums="colums">
+          <tr>
+            <td>{{ afbItem.afbId }}</td>
+            <td>{{ afbItem.userFullname }}</td>
+            <td>{{ afbItem.userdepart_name}}</td>
+            <td>{{ afbItem.afb_comment }}</td>
+            <td>{{ afbItem.afb_date }}</td>
+            <td [ngClass]="{'text-warning': afbItem.state_id == 1, 'text-success': afbItem.state_id == 2,'text-danger': afbItem.state_id == 3}">
+                <ng-container *ngIf="afbItem.state_id == 1">รออนุมัติ</ng-container>
+                <ng-container *ngIf="afbItem.state_id == 2">อนุมัติแล้ว/รอสั่งซื้อ</ng-container>
+                <ng-container *ngIf="afbItem.state_id == 3">ใบขอซื้อถูกยกเลิก</ng-container>
+              </td>
+              <td><button pButton pRipple label="เลือกใบขอซื้อนี้" class="p-button-success" (click)="selectPurchaseOrder(afbItem)"></button></td>
+
+          </tr>
+        </ng-template>
+      </p-table>
+</p-dialog>
+<div class="container" *ngFor="let con of whocon">
+    <div class="card">
+      <div class="card-header">
+        <h3>ข้อมูลใบขอซื้อ</h3>
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+          <p-table [value]="[{}]" responsiveLayout="stack" [breakpoint]="'960px'">
+            <ng-template pTemplate="body" let-colums>
+                <ng-container *ngFor="let item of [{}]">
+                    <tr>
+                        <td>ใบขอซื้อเลขที่: <input type="text" pInputText class="form-control" [value]="afbId" disabled /></td>
+                        <td>ผู้ขอซื้อ: <input type="text" pInputText class="form-control" [value]="userFullname" disabled /></td>
+                        <td>ฝ่าย: <input type="text" pInputText class="form-control" [value]="userDepartName" disabled /></td>
+                        <td>รหัสผู้ใช้: <input type="text" pInputText class="form-control" [value]="userId" disabled /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">ผู้อนุมัติ: <input type="text" pInputText class="form-control" [value]="con.userCon" disabled /></td>
+                        <td colspan="2">ขอซื้อวันที่: <input type="text" pInputText class="form-control" [value]="afbDate" disabled /></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">
+                            เลือกบริษัทที่จะติดต่อซื้อขาย:
+                            <select class="form-control" [(ngModel)]="selectedCompany">
+                                <option *ngFor="let company of companies" [value]="company.company_id">{{ company.company_name }}</option>
+                            </select>
+                        </td>
+                    </tr>
+                </ng-container>
+            </ng-template>
+        </p-table>
+        
+          <p-table [value]="items" responsiveLayout="stack" [breakpoint]="'960px'">
+            <ng-template pTemplate="header" let-colums>
+              <tr>
+                <th>รหัสสินค้า</th>
+                <th>ชื่อสินค้า</th>
+                <th>จำนวน</th>
+                <th>หน่วยนับ</th>
+                <th>ราคา / หน่วย</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-i="index" let-colums="colums">
+              <tr>
+                <td>{{ item.material_id }}</td>
+                <td>{{ item.material_name }}</td>
+                <td>{{ item.afb_item_values }}</td>
+                <td>{{item.unit_name}}</td>
+                <td><input type="text" pInputText class="form-control" [(ngModel)]="item.price" (ngModelChange)="calculateTotalPrice()" />&nbsp;บาท</td>
+              </tr>
+            </ng-template>
+          </p-table>
+          <div class="text-right mt-3 d-flex justify-content-between">
+            <div>ราคารวมทั้งหมด: {{ totalPrice | currency:'THB':'symbol-narrow' }}</div>
+            <button (click)="exportToExcel($event)" class="btn btn-primary">บันทึก Export To Excel</button>
+        </div>
+        
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  

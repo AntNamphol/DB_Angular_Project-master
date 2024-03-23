@@ -1,0 +1,23 @@
+<p-table [value]="podetail" responsiveLayout="stack" [breakpoint]="'960px'">
+    <ng-template pTemplate="header" let-colums>
+        <tr>
+            <th>รหัสสินค้า</th>
+            <th>ชื่อสินค้า</th>
+            <th>จำนวนสั่ง</th>
+            <th>ราคา/หน่วย</th>
+            <th>ราคารวม</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-colums="colums">
+        <tr>
+            <td>รหัสสินค้า:{{ rowData.material_id }}</td>
+            <td>ชื่อสินค้า:{{ rowData.material_name }}</td>
+            <td>
+                จำนวนสั่ง:{{ rowData.item_values }}
+            </td>
+            <td>ราคา/หน่วย:{{ rowData.item_price }}</td>
+            <td>ราคารวม:{{ rowData.item_price_sum }}</td>
+
+        </tr>
+    </ng-template>
+</p-table>

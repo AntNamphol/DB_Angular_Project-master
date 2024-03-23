@@ -1,0 +1,60 @@
+import { HttpClient } from '@angular/common/http';
+import { Component,OnInit } from '@angular/core';
+import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
+import { Router } from '@angular/router';
+
+
+
+@Component({
+  selector: 'app-dialoh-edit-type',
+  templateUrl: './dialoh-edit-type.component.html',
+  styleUrls: ['./dialoh-edit-type.component.css'],
+  providers: [ConfirmationService, MessageService]
+})
+export class DialohEditTypeComponent implements OnInit{
+  material_type_id:any;
+  edit_nuynab:any;
+  chan:any;
+  constructor(private http:HttpClient,public config: DynamicDialogConfig,public ref: DynamicDialogRef,private confirmationService: ConfirmationService, private messageService: MessageService,private router:Router){
+
+  }
+
+  ngOnInit(): void {
+    this.material_type_id = this.config.data.material_type_id;
+    this.load();
+  }
+  load(){
+    const url = 'http://localhost/backend/loadtype.php';
+    const data = { material_type_id:this.material_type_id };
+    this.http.post<any>(url,data).subscribe(ress => {
+      this.chan = ress;
+
+    });
+  }
+  save_eiei(event: Event){
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      header: 'ต้องการแก้ไขชั้นวางหรือไม่',
+      acceptIcon:"none",
+      rejectIcon:"none",
+      rejectButtonStyleClass:"p-button-text",
+      accept: () => {
+        const url = 'http://localhost/backend/edit_type.php';
+    const data = {edit_nuynab:this.edit_nuynab,material_type_id:this.material_type_id};
+        this.http.post<any>(url, data).subscribe(res => {
+          if (res && res.status === 'success') {
+            this.messageService.add({ severity: 'success', summary: 'สำเร็จ', detail: 'แก้ไขสำเร็จ', life: 3000 });
+            window.location.reload();
+            
+          } else {
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'แก้ไขไม่สำเร็จ', life: 3000 });
+          }
+        });
+      },
+      reject: () => {
+        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'ยกเลิกการกระทำ', life: 3000 });
+      }
+  });
+  }
+}

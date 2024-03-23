@@ -1,0 +1,84 @@
+
+@media screen and (max-width: 767px) {
+    .table-wrapper table {
+        width: 100%;
+        
+    }
+
+
+    .table-wrapper table td,
+    .table-wrapper table th {
+        
+        text-align: left;
+    }
+    /* ปรับขนาดตาราง */
+    .card-body table {
+      width: 100%;
+    }
+    
+    /* ปรับขนาดของแต่ละเซลล์ในตาราง */
+    .card-body td {
+      
+      width: 100%;
+      text-align: center;
+    }
+    
+    /* ปรับขนาดของปุ่ม */
+    .card-body button {
+      width: 100%;
+      margin-bottom: 10px; /* เพิ่มระยะห่างระหว่างปุ่ม */
+    }
+    
+    /* ปรับขนาดของกรอบยืดหยุ่น */
+    .surface-overlay {
+      max-width: 100%; /* ปรับขนาดกรอบให้ไม่กว้างเกินไป */
+    }
+    
+    /* เพิ่มความกว้างและความสูงของไอคอนปุ่ม */
+    .border-circle {
+      width: 3rem;
+      height: 3rem;
+    }
+    
+    /* ปรับขนาดข้อความในปุ่ม */
+    .text-5xl {
+      font-size: 0.5rem;
+    }
+    
+    /* ปรับขนาดข้อความหัวข้อ */
+    .font-bold {
+      font-size: 0.25rem;
+    }
+    
+    /* ปรับขนาดข้อความทั่วไป */
+    .text-2xl {
+      font-size: 12px;
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    /* ปรับขนาดของข้อความใน table cells */
+    td {
+      font-size: 12px; /* ปรับขนาดข้อความให้เล็กลง เพื่อให้สอดคล้องกับพื้นที่ที่มีจำกัดบนหน้าจอมือถือ */
+    }
+  
+    /* ปรับขนาดของ input fields */
+    input[type="text"] {
+      width: 100%; /* ปรับความกว้างของ input fields เพื่อให้สอดคล้องกับหน้าจอมือถือ */
+    }
+  
+    /* ปรับขนาดของปุ่ม */
+    .p-button {
+      font-size: 12px; /* ปรับขนาดของปุ่มให้เล็กลง เพื่อให้สอดคล้องกับพื้นที่ที่มีจำกัดบนหน้าจอมือถือ */
+      padding: 5px 10px; /* ปรับขนาดของปุ่มให้มีขนาดเล็กลง เพื่อให้สอดคล้องกับพื้นที่ที่มีจำกัดบนหน้าจอมือถือ */
+    }
+    th {
+        font-size: 14px; /* ปรับขนาดข้อความใน header cells ให้ใหญ่ขึ้นเล็กน้อย เพื่อให้ง่ายต่อการอ่านบนอุปกรณ์มือถือ */
+      }
+    
+      /* ปรับขนาดของ footer cells */
+      td input[type="text"] {
+        font-size: 14px; /* ปรับขนาดข้อความใน footer cells ให้ใหญ่ขึ้นเล็กน้อย เพื่อให้ง่ายต่อการอ่านบนอุปกรณ์มือถือ */
+      }
+  }
+  
+  
