@@ -133,6 +133,19 @@ export class NavBarComponent implements OnInit {
             command:() => this.navPickin(),
           },
           {
+            label: 'เบิกออกวัสดุ',
+            icon: 'pi pi-fw pi-shopping-cart',
+            visible: this.userlv_id == 3,
+            items: [
+              {
+                label: 'เบิกออกวัสดุ',
+                icon: 'pi pi-fw pi-sign-out',
+                command : () => this.navUq(),
+    
+              }
+            ]
+          },
+          {
             label: 'จัดการคลังวัสดุ',
             icon: 'pi pi-fw pi-cart-plus',
             items: [
@@ -158,31 +171,6 @@ export class NavBarComponent implements OnInit {
               }
 
             ]
-          }
-        ]
-      },
-      {
-        label: 'เบิกออกวัสดุ',
-        icon: 'pi pi-fw pi-shopping-cart',
-        visible: this.userlv_id == 3,
-        items: [
-          {
-            label: 'ข้อมูลพนักงานเบิกวัสดุ',
-            icon: 'pi pi-fw pi-info-circle',
-            items: [
-              {
-                label: 'เพิ่ม/ลบ/แก้ไข ข้อมูลพนักงานเบิกวัสดุ',
-                icon: 'pi pi-fw pi-user-edit',
-                command : () => this.navUq(),
-
-
-              }
-            ]
-          },
-          {
-            label: 'เบิกออกวัสดุ',
-            icon: 'pi pi-fw pi-cart-plus',
-
           }
         ]
       },
