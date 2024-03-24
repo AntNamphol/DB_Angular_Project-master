@@ -6,8 +6,8 @@
             <ng-template pTemplate="header" let-columns>
                 <tr>
                     <th>ชื่อผู้ขอซื้อ</th>
-                    <th>รหัสสินค้า</th>
-                    <th>ชื่อสินค้า</th>
+                    <th>รหัสวัสดุ</th>
+                    <th>ชื่อวัสดุ</th>
                     <th>จำนวน</th>
                     <th>หน่วยนับ</th>
                     <th>สถานะ</th>
@@ -16,8 +16,8 @@
             <ng-template pTemplate="body" let-item let-columns="columns">
                 <tr>
                     <td>ชื่อผู้ขอซื้อ:{{ item.user_fname }} {{item.user_lname}}</td>
-                    <td>รหัสสินค้า:{{ item.material_id }}</td>
-                    <td>ชื่อสินค้า:{{ item.material_name }}</td>
+                    <td>รหัสวัสดุ:{{ item.material_id }}</td>
+                    <td>ชื่อวัสดุ:{{ item.material_name }}</td>
                     <td>จำนวน:{{ item.afb_item_values }}</td>
                     <td>หน่วยนับ:{{ item.unit_name }}</td>
                     <td [ngClass]="{'text-warning': item.state_id == 1 || item.state_id == 5 || item.state_id == 11, 'text-success': item.state_id == 2 || item.state_id == 10,'text-danger': item.state_id == 3}">สถานะ:

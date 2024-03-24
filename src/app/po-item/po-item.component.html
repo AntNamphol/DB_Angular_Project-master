@@ -5,7 +5,7 @@
 <table>
     <tr>
         <td>
-            <h2>เพิ่มใบสั่งซื้อสินค้า</h2>
+            <h2>เพิ่มใบสั่งซื้อวัสดุ</h2>
         </td>
         <td>
             <p-button label="เลือกใบขอซื้อ" icon="pi pi-plus" (click)="showDialog()"></p-button>
@@ -13,7 +13,7 @@
     </tr>
 </table>
 
-<p-dialog header="เลือกใบขอซื้อสินค้า เพื่อสั่งซื้อ" [(visible)]="visible" [style]="{width: '70vw',height:'500px'}">
+<p-dialog header="เลือกใบขอซื้อวัสดุ เพื่อสั่งซื้อ" [(visible)]="visible" [style]="{width: '70vw',height:'500px'}">
     <p-table [value]="afborder" responsiveLayout="stack" [breakpoint]="'960px'">
         <ng-template pTemplate="header" let-colums>
           <tr>
@@ -79,8 +79,8 @@
           <p-table [value]="items" responsiveLayout="stack" [breakpoint]="'960px'">
             <ng-template pTemplate="header" let-colums>
               <tr>
-                <th>รหัสสินค้า</th>
-                <th>ชื่อสินค้า</th>
+                <th>รหัสวัสดุ</th>
+                <th>ชื่อวัสดุ</th>
                 <th>จำนวน</th>
                 <th>หน่วยนับ</th>
                 <th>ราคา / หน่วย</th>

@@ -60,7 +60,7 @@ export class PickInOrderComponent implements OnInit{
   openDetail(po_from_id:number){
     console.log(po_from_id);
     const ref = this.dialogService.open(DialogDetailPickComponent, {
-      header: 'รายละเอียดการรับเข้าสินค้า',
+      header: 'รายละเอียดการรับเข้าวัสดุ',
       width: 'auto',
       data: {
         po_from_id

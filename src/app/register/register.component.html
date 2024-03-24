@@ -1,0 +1,54 @@
+<div class="login-box">
+    <div class="login-set">
+        <div>
+            <h2><i class="pi pi-user-plus" style="font-size: 1.5rem"></i>สมัครสมาชิก</h2>
+        </div>
+        <div>
+           ชื่อผู้ใช้
+        </div>
+        <div>
+            <input type="text" pInputText [(ngModel)]="username" placeholder="Username" [style]="{ width: '100%'}" id="username" name="username"/>
+        </div>
+        <div>
+            รหัสผ่าน
+        </div>
+        <div>
+            <p-password [toggleMask]="true" [style]="{ width: '100%'}" [(ngModel)]="password"  [feedback]="false" placeholder="Password" id="password" name="password"></p-password>
+        </div>
+        <div>
+            ชื่อจริง
+        </div>
+        <div>
+            <input type="text" pInputText [(ngModel)]="userFname" placeholder="ชื่อจริง" [style]="{ width: '100%'}" id="userFname" name="userFname"/>
+        </div>
+        <div>
+            นามสกุล
+        </div>
+        <div>
+            <input type="text" pInputText [(ngModel)]="userLname" placeholder="นามสกุล" [style]="{ width: '100%'}" id="userLname" name="userLname"/>
+        </div>
+        <div>
+            อายุ
+        </div>
+        <div>
+            <input type="number" pInputText [(ngModel)]="age" placeholder="อายุ" [style]="{ width: '100%'}" id="age" name="age"/>
+        </div>
+        <div>
+            เบอร์โทร
+        </div>
+        <div>
+            <input type="number" pInputText [(ngModel)]="nump" placeholder="เบอร์โทร" [style]="{ width: '100%'}" id="nump" name="nump"/>
+        </div>
+        <div>
+            <label for="depart">ฝ่าย</label>
+        </div>
+        <div>
+            <p-dropdown id="depart" [options]="departList" [(ngModel)]="selectedDepart" optionLabel="userdepart_name"></p-dropdown>
+        </div>
+        <br>
+        <div style="display: flex;align-items: center;">
+            <button pButton pRipple label="ลงทะเบียน" class="p-button-success" [style]="{width:'150px'}" (click)="register()"></button>
+            &nbsp; มีบัญชีอยู่แล้ว?  <a style="color: blue;cursor: pointer;" (click)="login()">เข้าสู่ระบบ</a>
+        </div>
+    </div>
+</div>

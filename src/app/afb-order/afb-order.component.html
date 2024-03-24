@@ -1,11 +1,11 @@
 <app-nav-bar></app-nav-bar><p-toast></p-toast>
-<p-dialog header="เพิ่มใบขอซื้อสินค้า" [(visible)]="visible" [style]="{ width: '100vw', height: '100vh' }" >
+<p-dialog header="เพิ่มใบขอซื้อวัสดุ" [(visible)]="visible" [style]="{ width: '100vw', height: '100vh' }" >
     <div class="table-wrapper">
-        <p-autoComplete [suggestions]="stock" [(ngModel)]="selectedItem" field="name" [showClear]="true" placeholder="ค้าหาสินค้า" (completeMethod)="search($event)"></p-autoComplete>
+        <p-autoComplete [suggestions]="stock" [(ngModel)]="selectedItem" field="name" [showClear]="true" placeholder="ค้าหาวัสดุ" (completeMethod)="search($event)"></p-autoComplete>
         <p-table [value]="stock">
             <ng-template pTemplate="header">
                 <tr>
-                    <th>รายการสินค้าทั้งหมด</th>
+                    <th>รายการวัสดุทั้งหมด</th>
                     <th>จำนวนขอซื้อ</th>
                     <th>หน่วยนับ</th>
                     <th>ACTION</th>

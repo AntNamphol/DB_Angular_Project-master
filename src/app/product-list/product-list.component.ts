@@ -14,7 +14,7 @@ import { DialogEditPrdComponent } from '../dialog-edit-prd/dialog-edit-prd.compo
 })
 export class ProductListComponent implements OnInit{
   prdList:any;
-  filteredPrdList: any[]=[]; // ประกาศตัวแปรสำหรับเก็บข้อมูลสินค้าที่ผ่านการกรอง
+  filteredPrdList: any[]=[]; // ประกาศตัวแปรสำหรับเก็บข้อมูลวัสดุที่ผ่านการกรอง
   searchText: string = ''; // ตัวแปรสำหรับเก็บข้อความที่ใช้ในการค้นหา
   visible1:boolean = false;
   addSheft:string='';
@@ -46,14 +46,14 @@ export class ProductListComponent implements OnInit{
       });
   }
   getProductList() {
-    // เรียกใช้งาน ProductService เพื่อดึงข้อมูลสินค้าทั้งหมด
+    // เรียกใช้งาน ProductService เพื่อดึงข้อมูลวัสดุทั้งหมด
     this.ProductService.getProducts().subscribe((data: any[]) => {
-      this.prdList = data; // กำหนดค่าข้อมูลสินค้าทั้งหมด
-      this.filteredPrdList = data; // กำหนดค่าข้อมูลสินค้าที่ผ่านการกรองเริ่มต้นเป็นข้อมูลทั้งหมด
+      this.prdList = data; // กำหนดค่าข้อมูลวัสดุทั้งหมด
+      this.filteredPrdList = data; // กำหนดค่าข้อมูลวัสดุที่ผ่านการกรองเริ่มต้นเป็นข้อมูลทั้งหมด
     });
   }
   search() {
-    // กรองข้อมูลสินค้าโดยใช้ข้อความที่ค้นหาในชื่อสินค้า, หน่วยนับ, และชั้นวาง
+    // กรองข้อมูลวัสดุโดยใช้ข้อความที่ค้นหาในชื่อวัสดุ, หน่วยนับ, และชั้นวาง
     this.filteredPrdList = this.prdList.filter((prd: { material_name: string; unit_name: string; material_class_shelf_name: string; }) =>
       prd.material_name.toLowerCase().includes(this.searchText.toLowerCase()) ||
       prd.unit_name.toLowerCase().includes(this.searchText.toLowerCase()) ||
@@ -117,10 +117,10 @@ export class ProductListComponent implements OnInit{
     this.http.post<any>(url,data).subscribe(
     (res) => {
       if(res && res.status ==='success'){
-        this.messageService.add({ severity: 'success', summary: 'สำเร็จ', detail: 'เพิ่มสินค้าใหม่สำเร็จ', life: 3000 });
+        this.messageService.add({ severity: 'success', summary: 'สำเร็จ', detail: 'เพิ่มวัสดุใหม่สำเร็จ', life: 3000 });
         this.load_prd();
       }else{
-        this.messageService.add({ severity: 'error', summary: 'ล้มเหลว', detail: 'มีสินค้านี้อยู่แล้ว', life: 3000 });
+        this.messageService.add({ severity: 'error', summary: 'ล้มเหลว', detail: 'มีวัสดุนี้อยู่แล้ว', life: 3000 });
       }
      
     },
@@ -133,7 +133,7 @@ export class ProductListComponent implements OnInit{
   editPrd(material_id:number){
     console.log(material_id);
     const ref = this.dialogService.open(DialogEditPrdComponent, {
-      header: 'แก้ไขสินค้า',
+      header: 'แก้ไขวัสดุ',
       width: '100vw',
       height:'100vw',
       data: {

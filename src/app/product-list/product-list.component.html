@@ -9,23 +9,23 @@
             <ng-template pTemplate="body">
                 <tr>
                     <td>
-                        <h3>รายการสินค้าในคลังทั้งหมด</h3>
+                        <h3>รายการวัสดุในคลังทั้งหมด</h3>
                     </td>
                     <td>
                         <!-- ส่วนของฟอร์มค้นหา -->
                         <input type="text" pInputText [(ngModel)]="searchText" placeholder="ค้นหา" (ngModelChange)="search()"/>
                     </td>
                     <td *ngIf="userLv == 3">
-                        <button pButton label="เพิ่มสินค้าใหม่" icon="pi pi-plus" (click)="showDialog()"></button>
+                        <button pButton label="เพิ่มวัสดุใหม่" icon="pi pi-plus" (click)="showDialog()"></button>
                     </td>
                 </tr>
             </ng-template>
         </p-table>
         
-        <p-dialog header="เพิ่มสินค้าใหม่เข้าคลังสินค้า" [(visible)]="visible" [style]="{width: '100vw',height:'100vw'}">
+        <p-dialog header="เพิ่มวัสดุใหม่เข้าคลังวัสดุ" [(visible)]="visible" [style]="{width: '100vw',height:'100vw'}">
             <div class="p-fluid">
                 <div class="p-field">
-                    <label for="productName">ชื่อสินค้า:</label>
+                    <label for="productName">ชื่อวัสดุ:</label>
                     <input id="productName" type="text" pInputText [(ngModel)]="prdNew" />
                 </div>
                 <div class="p-field">

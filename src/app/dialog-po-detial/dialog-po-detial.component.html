@@ -1,8 +1,8 @@
 <p-table [value]="podetail" responsiveLayout="stack" [breakpoint]="'960px'">
     <ng-template pTemplate="header" let-colums>
         <tr>
-            <th>รหัสสินค้า</th>
-            <th>ชื่อสินค้า</th>
+            <th>รหัสวัสดุ</th>
+            <th>ชื่อวัสดุ</th>
             <th>จำนวนสั่ง</th>
             <th>ราคา/หน่วย</th>
             <th>ราคารวม</th>
@@ -10,8 +10,8 @@
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-colums="colums">
         <tr>
-            <td>รหัสสินค้า:{{ rowData.material_id }}</td>
-            <td>ชื่อสินค้า:{{ rowData.material_name }}</td>
+            <td>รหัสวัสดุ:{{ rowData.material_id }}</td>
+            <td>ชื่อวัสดุ:{{ rowData.material_name }}</td>
             <td>
                 จำนวนสั่ง:{{ rowData.item_values }}
             </td>

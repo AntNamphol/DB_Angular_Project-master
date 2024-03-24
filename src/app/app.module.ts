@@ -61,6 +61,10 @@ import { DialogDetailPickComponent } from './dialog-detail-pick/dialog-detail-pi
 import { ChartModule } from 'primeng/chart';
 import { UserReqItemComponent } from './user-req-item/user-req-item.component';
 import { SumaryAfbComponent } from './sumary-afb/sumary-afb.component';
+import { PasswordModule } from 'primeng/password';
+import { DividerModule } from 'primeng/divider';
+import { RegisterComponent } from './register/register.component';
+
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -78,6 +82,7 @@ const routes: Routes = [
   { path: 'pickIn', component: PickInOrderComponent, canActivate: [AuthGuard] },
   { path: 'uq', component: UserReqItemComponent, canActivate: [AuthGuard] },
   { path: 'summa', component: SumaryAfbComponent, canActivate: [AuthGuard] },
+  { path: 'register', component: RegisterComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
@@ -112,6 +117,7 @@ const routes: Routes = [
     DialogDetailPickComponent,
     UserReqItemComponent,
     SumaryAfbComponent,
+    RegisterComponent,
     
     
   ],
@@ -146,7 +152,9 @@ const routes: Routes = [
     StyleClassModule,
     MenuModule,
     TabViewModule,
-    ChartModule
+    ChartModule,
+    PasswordModule,
+    DividerModule
   ],
   exports: [RouterModule],
   providers: [AuthGuard],

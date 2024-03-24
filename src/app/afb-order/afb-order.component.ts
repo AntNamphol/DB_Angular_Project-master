@@ -41,7 +41,7 @@ export class AfbOrderComponent implements OnInit {
     });
     
     console.log(item.unit_name);
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'เพิ่มสินค้าลงตะกร้าแล้ว' });
+    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'เพิ่มวัสดุลงตะกร้าแล้ว' });
   }
 
   editItem(item: any) {
