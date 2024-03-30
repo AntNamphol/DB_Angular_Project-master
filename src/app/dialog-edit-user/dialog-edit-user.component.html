@@ -1,0 +1,37 @@
+<div *ngFor="let user of userEditAll">
+    <div class="p-fluid">
+        <div class="p-field">
+            <label for="Username">Username:</label>
+            <input id="Username" type="text" pInputText [(ngModel)]="edit_user_name" placeholder="{{user.user_name}}" disabled/>
+        </div>
+        <div class="p-field">
+            <label for="Password">Password:</label>
+            <input id="Password" type="text" pInputText [(ngModel)]="edit_user_password" placeholder="{{user.user_password}}" />
+        </div>
+        <div class="p-field">
+            <label for="name">ชื่อจริง:</label>
+            <input id="name" type="text" pInputText [(ngModel)]="edit_user_Fname" placeholder="{{user.user_fname}}" />
+        </div>
+        <div class="p-field">
+            <label for="lastname">นามสกุล</label>
+            <input id="lastname" type="text" pInputText [(ngModel)]="edit_user_Lname" placeholder="{{user.user_lname}}" />
+        </div>
+        <div class="p-field">
+            <label for="agr">อายุ</label>
+            <input id="agr" type="text" pInputText [(ngModel)]="edit_user_Age" placeholder="{{user.user_age}}" />
+        </div>
+        <div class="p-field">
+            <label for="nump">เบอร์โทร</label>
+            <input id="nump" type="text" pInputText [(ngModel)]="edit_user_Nump" placeholder="{{user.user_numphone}}" />
+        </div>
+        <div class="p-field">
+            <label for="materialShelf">ระดับผู้ใช้:</label>
+            <p-dropdown id="materialShelf" [options]="lv" [(ngModel)]="selectLv" optionLabel="userlv_name" placeholder="{{user.userlv_name}}"></p-dropdown>
+        </div>
+        <br>
+        <div class="p-field">
+            <button pButton label="บันทึก" icon="pi pi-check"  class="p-button-success" (click)="save()"></button>
+        </div>
+    </div>
+</div>
+<p-toast></p-toast>

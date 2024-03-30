@@ -1,15 +1,15 @@
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Component,OnInit } from '@angular/core';
-import { MessageService } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { PopUpEditCompComponent } from '../pop-up-edit-comp/pop-up-edit-comp.component';
+import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
 
 
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
   styleUrls: ['./company.component.css'],
-  providers: [MessageService,DialogService]
+  providers: [ConfirmationService, MessageService,DialogService]
 })
 export class CompanyComponent implements OnInit{
   visible: boolean = false;
@@ -20,7 +20,7 @@ export class CompanyComponent implements OnInit{
   companies:any[] = [];
   compS:any;
   searchComName:string='';
-  constructor(private http:HttpClient,private messageService: MessageService,private dialogService: DialogService){
+  constructor(private http:HttpClient,private messageService: MessageService,private dialogService: DialogService,private confirmationService: ConfirmationService){
 
   }
 
@@ -87,22 +87,33 @@ export class CompanyComponent implements OnInit{
       console.log('Dialog closed:', result);
       // ทำสิ่งที่ต้องการเมื่อ Dialog ถูกปิด
     });
-    console.log(company_id);
   }
 
-  deleteCompany(company_id: number) {
-    console.log(company_id);
-    if (confirm('คุณแน่ใจหรือไม่ว่าต้องการลบบริษัทนี้?')) {
-      const url = `http://localhost/backend/delete_company.php`;
-      const data = { company_id };
-      this.http.post<any>(url,data ).subscribe(
-        () => {
-          this.load_comp();
-        },
-        (error) => {
-          console.error('เกิดข้อผิดพลาดในการลบบริษัท:', error);
-        }
-      );
-    }
+  deleteCompany(event:Event,company_id: number) {
+
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'ต้องการลบผู้จัดหาหรือไม่?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      acceptIcon:"none",
+      rejectIcon:"none",
+      rejectButtonStyleClass:"p-button-text",
+      accept: () => {
+        const url = `http://localhost/backend/delete_company.php`;
+        const data = { company_id };
+        this.http.post<any>(url,data ).subscribe(
+          () => {
+            this.load_comp();
+          },
+          (error) => {
+            console.error('เกิดข้อผิดพลาดในการลบบริษัท:', error);
+          }
+        );
+      },
+      reject: () => {
+        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'ยกเลิกการกระทำ', life: 3000 });
+      }
+  });
   }
 }

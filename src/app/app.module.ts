@@ -81,6 +81,7 @@ import { DialogEditRowComponent } from './dialog-edit-row/dialog-edit-row.compon
 import { CheckboxModule } from 'primeng/checkbox';
 import { DialogMapItemComponent } from './dialog-map-item/dialog-map-item.component';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -155,6 +156,7 @@ const routes: Routes = [
     RowItemComponent,
     DialogEditRowComponent,
     DialogMapItemComponent,
+    DialogEditUserComponent,
     
     
   ],

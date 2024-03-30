@@ -9,15 +9,99 @@
                     <h3>รายชื่อผู้ใช้ทั้งหมด</h3>
                 </td>
                 <td>
-
+                  <p-button (click)="showDialog()" icon="pi pi-plus" label="เพิ่มผู้ใช้งาน"></p-button>
+                  <p-dialog header="เพิ่มผู้ใช้งาน" [(visible)]="visible" [style]="{width: '95vw'}">
+                    <div class="login-box">
+                      <div class="login-set">
+                          <div>
+                              <h2><i class="pi pi-user-plus" style="font-size: 1.5rem"></i>เพิ่มผู้ใช้งาน</h2>
+                          </div>
+                          <div>
+                             ชื่อผู้ใช้
+                          </div>
+                          <div>
+                              <input type="text" pInputText [(ngModel)]="username" placeholder="Username" [style]="{ width: '100%'}" id="username" name="username"/>
+                          </div>
+                          <div>
+                              รหัสผ่าน
+                          </div>
+                          <div>
+                              <p-password [toggleMask]="true" [style]="{ width: '100%'}" [(ngModel)]="password"  [feedback]="false" placeholder="Password" id="password" name="password"></p-password>
+                          </div>
+                          <div>
+                              ชื่อจริง
+                          </div>
+                          <div>
+                              <input type="text" pInputText [(ngModel)]="userFname" placeholder="ชื่อจริง" [style]="{ width: '100%'}" id="userFname" name="userFname"/>
+                          </div>
+                          <div>
+                              นามสกุล
+                          </div>
+                          <div>
+                              <input type="text" pInputText [(ngModel)]="userLname" placeholder="นามสกุล" [style]="{ width: '100%'}" id="userLname" name="userLname"/>
+                          </div>
+                          <div>
+                              อายุ
+                          </div>
+                          <div>
+                              <input type="number" pInputText [(ngModel)]="age" placeholder="อายุ" [style]="{ width: '100%'}" id="age" name="age"/>
+                          </div>
+                          <div>
+                              เบอร์โทร
+                          </div>
+                          <div>
+                              <input type="number" pInputText [(ngModel)]="nump" placeholder="เบอร์โทร" [style]="{ width: '100%'}" id="nump" name="nump"/>
+                          </div>
+                          <div>
+                              <label for="depart">ฝ่าย</label>
+                          </div>
+                          <div>
+                              <p-dropdown id="depart" [options]="departList" [(ngModel)]="selectedDepart" optionLabel="userdepart_name"></p-dropdown>
+                          </div>
+                          <br>
+                          <div style="display: flex;align-items: center;">
+                              <button pButton pRipple label="ลงทะเบียน" class="p-button-success" [style]="{width:'150px'}" (click)="register()"></button>
+                          </div>
+                      </div>
+                  </div>
+                  </p-dialog>
                 </td>
             </tr>
         </table>
        
         
       </div>
+      <input type="text" pInputText placeholder="ค้นหาผู้ใช้งาน" [(ngModel)]="searchUser" (ngModelChange)="searchAfbIdChange($event)" />
       <div class="card-body">
         <div class="form-group">
+          <p-table [value]="UserAll" responsiveLayout="stack" [breakpoint]="'960px'" *ngIf="searchUser">
+            <ng-template pTemplate="header" let-colums>
+              <tr>
+                <th>User Id</th>
+                <th>Username</th>
+                <th>UserPassword</th>
+                <th>User Fullname</th>
+                <th>User Age</th>
+                <th>User Numphone</th>
+                <th>USer Lv</th>
+                <th>ลบ</th>
+                <th>แก้ไข</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-user let-colums="colums">
+              <tr>
+                    <td>{{user.user_id}}</td>
+                    <td>{{user.user_name}}</td>
+                    <td>{{user.user_password}}</td>
+                    <td>{{user.userFullname}}</td>
+                    <td>{{user.user_age}}</td>
+                    <td>{{user.user_numphone}}</td>
+                    <td>{{user.userlv_name}}</td>
+                    <td><button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="delUser($event,user.user_id)"></button></td>
+                    <td><button pButton icon="pi pi-user-edit" class="p-button-rounded p-button-warning" (click)="editUser(user.user_id)"></button></td>
+              </tr>
+            </ng-template>
+          </p-table>
             <p-table [value]="userPic" responsiveLayout="stack" [breakpoint]="'960px'">
                 <ng-template pTemplate="header" let-colums>
                   <tr>
@@ -42,7 +126,7 @@
                         <td>{{user.user_numphone}}</td>
                         <td>{{user.userlv_name}}</td>
                         <td><button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="delUser($event,user.user_id)"></button></td>
-                        <td><button pButton icon="pi pi-user-edit" class="p-button-rounded p-button-warning"></button></td>
+                        <td><button pButton icon="pi pi-user-edit" class="p-button-rounded p-button-warning" (click)="editUser(user.user_id)"></button></td>
                   </tr>
                 </ng-template>
               </p-table>

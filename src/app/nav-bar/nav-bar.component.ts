@@ -55,7 +55,7 @@ export class NavBarComponent implements OnInit {
         visible: this.userlv_id == 5,
         items: [
           {
-            label: 'แก้ไขสิทธิ์ผู้ใช้',
+            label: 'การเพิ่ม ลบ แก้ไข ผู้ใช้งาน',
             icon: 'pi pi-user-edit',
             command: () => this.navEDituser(),
           }
@@ -64,12 +64,13 @@ export class NavBarComponent implements OnInit {
       {
         label: 'การจัดการผู้จัดหา',
         icon: 'pi pi-briefcase',
+        visible: this.userlv_id == 4,
         items:[
           {
             label: 'เพิ่ม ลบ แก้ไข ผู้จัดหา',
             icon: 'pi pi-briefcase',
             command: () => this.navCompany(),
-            visible: this.userlv_id == 4,
+           
           }
         ]
       
