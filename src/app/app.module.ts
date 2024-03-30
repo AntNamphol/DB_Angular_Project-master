@@ -3,14 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { Select2Module } from 'ng-select2-component';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CalendarModule } from 'primeng/calendar';
-import { SidebarModule } from 'primeng/sidebar';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
@@ -21,8 +19,6 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { TableModule } from 'primeng/table';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { PaginatorModule } from 'primeng/paginator';
-import { TreeTableModule } from 'primeng/treetable';
-import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MenubarModule } from 'primeng/menubar';
 import { CardModule } from 'primeng/card';
 import { FieldsetModule } from 'primeng/fieldset';
@@ -52,7 +48,6 @@ import { NuynabComponent } from './nuynab/nuynab.component';
 import { DialogEditNuynabComponent } from './dialog-edit-nuynab/dialog-edit-nuynab.component';
 import { TypeItemComponent } from './type-item/type-item.component';
 import { DialohEditTypeComponent } from './dialoh-edit-type/dialoh-edit-type.component';
-import { AddNewPrdComponent } from './add-new-prd/add-new-prd.component';
 import { DialogEditPrdComponent } from './dialog-edit-prd/dialog-edit-prd.component';
 import { PickInOrderComponent } from './pick-in-order/pick-in-order.component';
 import { DialogPickinComponent } from './dialog-pickin/dialog-pickin.component';
@@ -69,8 +64,7 @@ import { PickInHistoryComponent } from './pick-in-history/pick-in-history.compon
 import { PickOutHisComponent } from './pick-out-his/pick-out-his.component';
 import { PickOutReturnComponent } from './pick-out-return/pick-out-return.component';
 import { EditPermisionUserComponent } from './edit-permision-user/edit-permision-user.component';
-import { AddNewUserComponent } from './add-new-user/add-new-user.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+
 
 import { FileUploadModule } from 'primeng/fileupload';
 import { ImageModule } from 'primeng/image';
@@ -108,7 +102,6 @@ const routes: Routes = [
   { path: 'row', component: RowItemComponent, canActivate: [AuthGuard] },
   { path: 'test', component: DialogMapItemComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent},
-  { path: 'fgp', component: ForgotPasswordComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
@@ -136,7 +129,6 @@ const routes: Routes = [
     DialogEditNuynabComponent,
     TypeItemComponent,
     DialohEditTypeComponent,
-    AddNewPrdComponent,
     DialogEditPrdComponent,
     PickInOrderComponent,
     DialogPickinComponent,
@@ -149,8 +141,6 @@ const routes: Routes = [
     PickOutHisComponent,
     PickOutReturnComponent,
     EditPermisionUserComponent,
-    AddNewUserComponent,
-    ForgotPasswordComponent,
     SlotItemComponent,
     DialogEditSlotComponent,
     RowItemComponent,
@@ -168,9 +158,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     FormsModule,
     HttpClientModule,
-    Select2Module,
     CalendarModule,
-    SidebarModule,
     ButtonModule,
     ConfirmDialogModule,
     DialogModule,
@@ -182,8 +170,6 @@ const routes: Routes = [
     TableModule,
     SpeedDialModule,
     PaginatorModule,
-    TreeTableModule,
-    InputTextareaModule,
     MenubarModule,
     CardModule,
     FieldsetModule,
