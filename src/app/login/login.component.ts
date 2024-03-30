@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -44,16 +43,6 @@ export class LoginComponent {
         } else {
           console.log('Please log in first.');
         }
-      },
-      (error) => {
-        // Handle login error
-        console.log(error);
-        Swal.fire({
-          icon: 'error',
-          title: 'error',
-          text: 'เกิดข้อผิดพลาดโปรดตรวจสอบข้อมูลให้ถูกต้อง',
-          
-        });
       }
     );
   }

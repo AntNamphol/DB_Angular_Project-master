@@ -75,7 +75,6 @@ export class UserReqItemComponent implements OnInit{
       pic_path:item.pic_path
     });
     
-    console.log(item.unit_name);
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'เพิ่มวัสดุลงตะกร้าแล้ว' });
   }
 
@@ -146,7 +145,7 @@ export class UserReqItemComponent implements OnInit{
       prd.unit_name.toLowerCase().includes(this.searchText.toLowerCase()) ||
       prd.material_class_shelf_name.toLowerCase().includes(this.searchText.toLowerCase())
     );
-    console.log(this.filteredPrdList);
+
   }
 
 }

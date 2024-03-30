@@ -39,7 +39,7 @@ export class TypeItemComponent implements OnInit {
             const data = {typeNew:this.typeNew};
             this.http.post<any>(url,data).subscribe(
                 (res) => {
-                    console.log(res);
+      
                     if (res && res.status === 'success') {
                         this.messageService.add({ severity: 'success', summary: 'สำเร็จ', detail: 'เพิ่มประเภทเสร็จสิ้น', life: 3000 });
                         this.visible = false;
@@ -49,7 +49,7 @@ export class TypeItemComponent implements OnInit {
                     }
                 },
                 (error) => {
-                    console.log(error);
+      
                     this.messageService.add({ severity: 'error', summary: 'ไม่สำเร็จ', detail: 'มีข้อผิดพลาดในการส่งคำขอ', life: 3000 });
                 }
             );
@@ -77,7 +77,6 @@ editCHanwang(material_type_id:number){
 }
 
 confirm1(event: Event,material_type_id:number) {
-  console.log(material_type_id);
   this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: 'ต้องการลบประเภทวัสดุหรือไม่?',
