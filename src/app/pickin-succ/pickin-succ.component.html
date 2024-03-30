@@ -1,0 +1,77 @@
+<app-nav-bar></app-nav-bar>
+<br>
+<div class="container">
+    <div class="card">
+      <div class="card-header">
+        <table>
+            <tr>
+                <td>
+                    <h3>รายการสั่งซื้อที่รับเข้าครบแล้ว
+                    </h3>
+                </td>
+
+            </tr>
+        </table>
+       
+        
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+            <p-table [value]="pick_item_succ" responsiveLayout="stack" [breakpoint]="'960px'">
+                <ng-template pTemplate="header" let-colums>
+                  <tr>
+                    <th>เลขใบสั่งซื้อ</th>
+                    <th>วันที่สั่งซื้อ</th>
+                    <th>สั่งซื้อจาก</th>
+                    <th>รหัสวัสดุ</th>
+                    <th>รูปภาพวัสดุ</th>
+                    <th>ชื่อวัสดุ</th>
+                    <th>จำนวนคงเหลือ</th>
+                    <th>หน่วยนับ</th>
+                    <th>สถานะ</th>
+                    <th>ผู้สั่งซื้อ
+                    </th>
+                    <th> การกระทำ</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-po let-colums="colums">
+                  <tr>
+
+                        <td>
+                            {{po.po_from_id}}
+                          </td>
+                          <td>
+                            {{po.po_date}}
+                          </td>
+                          <td>
+                            {{po.company_name}}
+                          </td>
+                          <td>{{po.material_id}}</td>
+                          <td><p-image src="http://localhost/backend/{{po.pic_path}}" alt="Image" width="100" [preview]="true"></p-image></td>
+                          <td>
+                            {{po.material_name}}
+                          </td>
+                          <td>{{po.item_values}}</td>
+                          <td>{{po.unit_name}}</td>
+                           <td [ngClass]="{'text-warning': po.state_id == 1 || po.state_id == 5 || po.state_id == 11, 'text-success': po.state_id == 2||po.state_id == 10,'text-danger': po.state_id == 3}">
+                                <ng-container *ngIf="po.state_id == 1">รออนุมัติ</ng-container>
+                                <ng-container *ngIf="po.state_id == 2">อนุมัติแล้ว/รอสั่งซื้อ</ng-container>
+                                <ng-container *ngIf="po.state_id == 3">ใบขอซื้อถูกยกเลิก</ng-container>
+                                <ng-container *ngIf="po.state_id == 5">สั่งซื้อแล้ว / รอตรวจรับ</ng-container>
+                                <ng-container *ngIf="po.state_id == 10">ตรวจรับแล้ว / ครบถ้วน</ng-container>
+                                <ng-container *ngIf="po.state_id == 11">ตรวจรับแล้ว / ยังไม่ครบถ้วน</ng-container>
+                              </td>
+                          <td>
+                            {{po.userCon}}
+                          </td>
+                          <td>
+                            <button pButton pRipple label="รายละเอียด" class="p-button-info" (click)="openDetail(po.po_from_id)"></button>
+                          </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            
+        </div>
+      </div>
+    </div>
+  </div>

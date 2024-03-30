@@ -1,23 +1,162 @@
 <app-nav-bar></app-nav-bar>
+<p-toast></p-toast>
+<p-confirmDialog></p-confirmDialog>
 <br>
 <div class="container">
     <div class="card">
       <div class="card-header">
        <table>
         <tr>
-            <td><h2>รายชื่อพนักงานขอเบิกวัสดุ</h2> </td>
-            <td>ค้นหาด้วยชื่อผู้สั่งซื้อ</td>
-            <td><p-button label="Submit" icon="pi pi-plus"></p-button></td>
+            <td><h2>เพิ่มใบเบิกออกวัสดุ</h2> </td>
+            <td> <p-button (click)="showDialog()" icon="pi pi-plus" label="เพิ่มใบเบิกออกวัสดุ"></p-button></td>
         </tr>
        </table>
        
         
       </div>
+
       <div class="card-body">
         <div class="form-group">
-           
-            
+          <div class="card-body">
+            <div class="form-group">
+
+                      
+
+                <p-table [value]="selectedItems" responsiveLayout="stack" [breakpoint]="'960px'">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th>รายการวัสดุ</th>
+                            <th>รูปภาพวัสดุ</th>
+                            <th>รหัสวัสดุ</th>
+                            <th>จำนวน</th>
+                            <th>หน่วยนับ</th>
+                            <th>แก้ไข</th>
+                            <th>ลบ</th>
+                            <th>ประเภทการยืม</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item let-columns="columns">
+                        <tr>
+                            <td>รายการวัสดุ:{{ item.name }}</td>
+                            <td><p-image src="http://localhost/backend/{{item.pic_path}}" alt="Image" width="100" [preview]="true"></p-image></td>
+                            <td>รหัสวัสดุ:{{ item.code }}</td>
+                            <td>
+                                <ng-container *ngIf="!item.editing; else editCell">
+                                    จำนวน:{{ item.quantity }}
+                                </ng-container>
+                                <!-- แสดงช่องข้อมูลสำหรับแก้ไข -->
+                                <ng-template #editCell>
+                                    จำนวน:<input type="text" pInputText [(ngModel)]="item.quantity" required/>
+                                </ng-template>
+                            </td>
+                            <td>หน่วยนับ:{{ item.unit_name }}</td>
+                            <td>
+                                <button pButton type="button" label="{{ item.editing ? 'บันทึก' : 'แก้ไข' }}" (click)="toggleEdit(item)" class="p-button-warning"></button>
+                            </td>
+                            <td>
+                                <button pButton type="button" label="ลบ" (click)="deleteItem(item)" class="p-button-danger"></button>
+                            </td>
+                            <td>
+                                <div *ngFor="let category of typePic" class="field-checkbox">
+                                    <p-radioButton [inputId]="category.key" name="category" [value]="category" [(ngModel)]="item.selectedtype"></p-radioButton>
+                                    <label [for]="category.key" class="ml-2">{{ category.pick_out_type_name }}</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+                
+
+                <!-- สร้าง footer แบบ custom -->
+                <div *ngIf="selectedItems && selectedItems.length > 0" class="custom-footer">
+                  <label for="depart">ผู้ขอเบิก:</label>
+                  <p-dropdown id="depart" [options]="userPic" [(ngModel)]="selectedUser" optionLabel="userFullname" [style]="{width:'100%'}"></p-dropdown>
+                  <label for="maysed">หมายเหตุ:</label>
+                  <input type="text" id="maysed "pInputText [(ngModel)]="maysed" placeholder="หมายเหตุ" [style]="{width:'100%'}" required/>
+                  <button pButton type="button" label="บันทึก" (click)="saveData()" [disabled]="!maysed || !selectedItems || selectedItems.length === 0"></button>
+              </div>
+              
+                
+            </div>
+          </div>
+        </div>
+      </div> 
         </div>
       </div>
+
+  <p-dialog header="เพิ่มใบเบิกออกวัสดุ"[(visible)]="visible" [style]="{ width: '100vw', height: '100vh' }" >
+    <div class="table-wrapper">
+        <input type="text" pInputText [(ngModel)]="searchText" placeholder="ค้นหา" (ngModelChange)="search()"/>
+        <p-table [value]="filteredPrdList" responsiveLayout="stack" [breakpoint]="'960px'" *ngIf="searchText">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th>รายการวัสดุทั้งหมด</th>
+                    <th>รูปภาพวัสดุ</th>
+                    <th>จำนวนคงเหลือ</th>
+                    <th>จำนวนขอเบิก</th>
+                    <th>หน่วยนับ</th>
+                    <th>ACTION</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-columns="columns">
+                <tr>
+                    <td>ชื่อวัสดุ:{{ item.material_name }}</td>
+                    <td><p-image src="http://localhost/backend/{{item.pic_path}}" alt="Image" width="100" [preview]="true"></p-image></td>
+                    <td>จำนวนคงเหลือ:{{ item.material_value }}</td>
+                    <td>จำนวนขอเบิก:
+                        <p-inputNumber inputId="integeronly" [(ngModel)]="item.quantity"> </p-inputNumber>
+                    <td>หน่วยนับ:{{item.unit_name}}</td>
+                    <td>
+                        <p-button label="+เพิ่มลงตะกร้า" (click)="addItem(item)" severity="success" [disabled]="item.quantity > item.itemValues"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <p-table [value]="itemAlleiei" responsiveLayout="stack" [breakpoint]="'960px'">
+            <ng-template pTemplate="header" let-columns>
+                <tr>
+                    <th>รายการวัสดุทั้งหมด</th>
+                    <th>รูปภาพวัสดุ</th>
+                    <th>จำนวนคงเหลือ</th>
+                    <th>จำนวนขอเบิก</th>
+                    <th>หน่วยนับ</th>
+                    <th>ACTION</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item let-columns="columns">
+                <tr>
+                    <td>ชื่อวัสดุ:{{ item.material_name }}</td>
+                    <td><p-image src="http://localhost/backend/{{item.pic_path}}" alt="Image" width="100" [preview]="true"></p-image></td>
+                    <td>จำนวนคงเหลือ:{{ item.material_value }}</td>
+                    <td>จำนวนขอเบิก:
+                        <p-inputNumber inputId="integeronly" [(ngModel)]="item.quantity"> </p-inputNumber>
+                    <td>หน่วยนับ:{{item.unit_name}}</td>
+                    <td>
+                        <p-button label="+เพิ่มลงตะกร้า" (click)="addItem(item)" severity="success" [disabled]="item.quantity > item.itemValues"></p-button>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        
+        
     </div>
-  </div>
+</p-dialog>
+<p-confirmDialog #cd>
+  <ng-template pTemplate="headless" let-message>
+      <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
+          <div class="border-circle bg-primary inline-flex justify-content-center align-items-center h-6rem w-6rem -mt-8">
+              <i class="pi pi-question text-5xl"></i>
+          </div>
+          <span class="font-bold text-2xl block mb-2 mt-4">{{ message.header }}</span>
+          <p class="mb-0">{{ message.message }}</p>
+          <div class="flex align-items-center gap-2 mt-4">
+            <button pButton label="Save" (click)="cd.accept()" class="w-8rem"></button>
+            <button pButton label="Cancel" (click)="cd.reject()" class="p-button-outlined w-8rem "></button>
+        </div>
+          <div class="flex align-items-center gap-2 mt-4">
+              <button pButton label="Save" (click)="cd.accept()" class="w-8rem"></button>
+              <button pButton label="Cancel" (click)="cd.reject()" class="p-button-outlined w-8rem "></button>
+          </div>
+      </div>
+  </ng-template>
+</p-confirmDialog>

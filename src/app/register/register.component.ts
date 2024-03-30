@@ -23,27 +23,36 @@ ngOnInit(): void {
   this.load_depart();
 }
 
-register(){
+register() {
   const url ='http://localhost/backend/register.php';
   const data = {
-    username:this.username,
-    password:this.password,
-    userFname:this.userFname,
-    userLname:this.userLname,
-    age:this.age,
-    nump:this.nump,
-    selectedDepart: this.selectedDepart
+    username: this.username,
+    password: this.password,
+    userFname: this.userFname,
+    userLname: this.userLname,
+    age: this.age,
+    nump: this.nump,
+    selectedDepart: this.selectedDepart,
   }
-  if(this.username != '' && this.password != '' && this.userFname != '' && this.userLname != '' && this.age != '' && this.nump != '' && this.selectedDepart != ''){
-    this.http.post<any>(url,data).subscribe(res =>{
 
+  // ตรวจสอบว่าข้อมูลทุกอย่างถูกกรอกครบถ้วนหรือไม่
+  if (this.username && this.password && this.userFname && this.userLname && this.age && this.nump && this.selectedDepart) {
+    // ส่งข้อมูลไปยังเซิร์ฟเวอร์เพื่อลงทะเบียน
+    this.http.post<any>(url, data).subscribe(res  => {
+      if(res && res.status == 'scuess'){
+        alert('ลงทะเบียนเสร็จสิ้น');
+        this.router.navigate(['login']);
+      }else{
+        alert('ชื่อผู้ใช้นี้ถูกใช้งานแล้ว');
+      }
     });
-  }else{
+  } else {
+    // แสดงข้อความแจ้งเตือนถ้าข้อมูลไม่ครบถ้วน
     alert('กรุณากรอกข้อมูลให้ครบถ้วน');
   }
 
-  console.log(data);
 }
+
 login(){
   this.router.navigate(['login']);
 }

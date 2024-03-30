@@ -80,7 +80,7 @@ confirm1(event: Event,material_type_id:number) {
   console.log(material_type_id);
   this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: 'ต้องการลบหน่วยนับหรือไม่?',
+      message: 'ต้องการลบประเภทวัสดุหรือไม่?',
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       acceptIcon:"none",

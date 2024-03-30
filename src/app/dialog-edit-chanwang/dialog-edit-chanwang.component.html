@@ -1,5 +1,7 @@
 
+
 <div *ngFor="let cann of chan"><p-toast></p-toast>
+    
 <input type="text" pInputText [(ngModel)]="edit_chanwang" placeholder="{{cann.material_class_shelf_name}}"/>
 &nbsp;
 <button pButton pRipple label="Submit" class="p-button-success" (click)="save_eiei($event)"></button>

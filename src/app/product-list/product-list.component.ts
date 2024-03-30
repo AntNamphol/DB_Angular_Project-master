@@ -13,6 +13,7 @@ import { DialogEditPrdComponent } from '../dialog-edit-prd/dialog-edit-prd.compo
   providers: [ConfirmationService, MessageService,DialogService]
 })
 export class ProductListComponent implements OnInit{
+[x: string]: any;
   prdList:any;
   filteredPrdList: any[]=[]; // ประกาศตัวแปรสำหรับเก็บข้อมูลวัสดุที่ผ่านการกรอง
   searchText: string = ''; // ตัวแปรสำหรับเก็บข้อความที่ใช้ในการค้นหา
@@ -28,8 +29,13 @@ export class ProductListComponent implements OnInit{
   chanWang:any;
   selectedchanWang:string='';
   ref: DynamicDialogRef | undefined;
-
-
+  slot:any;
+  selectedslot:string='';
+  selectedFile!: File;
+  row:any;
+  selectedRow:string='';
+  checkBox1:boolean = false;
+  date1:Date | undefined;
   constructor(private http:HttpClient,private ProductService:ProductService,private confirmationService: ConfirmationService, private messageService: MessageService,public dialogService: DialogService){}
 
   ngOnInit(): void {
@@ -38,6 +44,8 @@ export class ProductListComponent implements OnInit{
     this.load_unitId();
     this.load_typeId();
     this.load_chanwang();
+    this.load_slot();
+    this.load_row();
   }
   load_prd(){
     this.http.get<any[]>('http://localhost/backend/load_prd.php')
@@ -50,6 +58,11 @@ export class ProductListComponent implements OnInit{
     this.ProductService.getProducts().subscribe((data: any[]) => {
       this.prdList = data; // กำหนดค่าข้อมูลวัสดุทั้งหมด
       this.filteredPrdList = data; // กำหนดค่าข้อมูลวัสดุที่ผ่านการกรองเริ่มต้นเป็นข้อมูลทั้งหมด
+    });
+  }
+  load_slot(){
+    this.http.get<any[]>('http://localhost/backend/load_slot.php').subscribe(response =>{
+      this.slot = response;
     });
   }
   search() {
@@ -110,24 +123,45 @@ export class ProductListComponent implements OnInit{
       this.chanWang = response;
     });
   }
+  load_row(){
+    this.http.get<any[]>('http://localhost/backend/load_row.php').subscribe(response =>{
+      this.row = response;
+    });
+  }
   saveProduct(){
-    const url = 'http://localhost/backend/add_new_prd_name.php';
-    const data ={ prdNew:this.prdNew,selectedType:this.selectedType,selectedUnit:this.selectedUnit,selectedchanWang:this.selectedchanWang};
+    if(this.prdNew != ''){
+      const url = 'http://localhost/backend/add_new_prd_name.php';
+      const data = {
+        prdNew: this.prdNew,
+        selectedType: JSON.stringify(this.selectedType),
+        selectedUnit: JSON.stringify(this.selectedUnit),
+        selectedslot: JSON.stringify(this.selectedslot),
+        
+        file: this.selectedFile
+    };
 
-    this.http.post<any>(url,data).subscribe(
-    (res) => {
-      if(res && res.status ==='success'){
-        this.messageService.add({ severity: 'success', summary: 'สำเร็จ', detail: 'เพิ่มวัสดุใหม่สำเร็จ', life: 3000 });
-        this.load_prd();
-      }else{
-        this.messageService.add({ severity: 'error', summary: 'ล้มเหลว', detail: 'มีวัสดุนี้อยู่แล้ว', life: 3000 });
-      }
-     
-    },
-    (error) =>{
-      console.log(error);
-      this.messageService.add({ severity: 'error', summary: 'ไม่สำเร็จ', detail: 'มีข้อผิดพลาดในการส่งคำขอ', life: 3000 });
-    });   
+    // สร้าง FormData object เพื่อรวมข้อมูลและไฟล์ที่จะอัปโหลด
+    const formData = new FormData();
+    formData.append('data', JSON.stringify(data));
+    formData.append('file', this.selectedFile);
+  
+      this.http.post<any>(url,formData).subscribe(
+      (res) => {
+        if(res && res.status ==='success'){
+          this.messageService.add({ severity: 'success', summary: 'สำเร็จ', detail: 'เพิ่มวัสดุใหม่สำเร็จ', life: 3000 });
+          this.load_prd();
+          this.visible = false;
+        }else{
+          this.messageService.add({ severity: 'error', summary: 'ล้มเหลว', detail: 'มีวัสดุนี้อยู่แล้ว', life: 3000 });
+        }
+       
+      },
+      (error) =>{
+        console.log(error);
+        this.messageService.add({ severity: 'error', summary: 'ไม่สำเร็จ', detail: 'มีข้อผิดพลาดในการส่งคำขอ', life: 3000 });
+      });   
+    }
+   
   }
   
   editPrd(material_id:number){
@@ -135,7 +169,7 @@ export class ProductListComponent implements OnInit{
     const ref = this.dialogService.open(DialogEditPrdComponent, {
       header: 'แก้ไขวัสดุ',
       width: '100vw',
-      height:'100vw',
+      height:'100hw',
       data: {
         material_id: material_id
       }
@@ -146,4 +180,8 @@ export class ProductListComponent implements OnInit{
       // ทำสิ่งที่ต้องการเมื่อ Dialog ถูกปิด
     });
   }
+  onFileSelected(event: any) {
+    console.log(event.target.files[0]);
+    this.selectedFile = event.target.files[0];
+}
 }

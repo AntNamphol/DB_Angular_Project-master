@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component,OnInit } from '@angular/core';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DialogPickinComponent } from '../dialog-pickin/dialog-pickin.component';
-import { DialogDetailPickComponent } from '../dialog-detail-pick/dialog-detail-pick.component';
+
 
 
 
@@ -15,14 +15,11 @@ import { DialogDetailPickComponent } from '../dialog-detail-pick/dialog-detail-p
 })
 export class PickInOrderComponent implements OnInit{
   pick_item:any[]=[];
-  picC:any[]=[];
-  pick_item_succ:any[]=[];
+
   constructor(private http:HttpClient,public dialogService: DialogService){}
 
   ngOnInit(): void {
     this.load_item_po_pick();
-    this.load_pic();
-    this.load_item_po_pick_succ();
   }
   load_item_po_pick(){
     this.http.get<any>('http://localhost/backend/load_pick_in.php').subscribe(res =>{
@@ -47,25 +44,6 @@ export class PickInOrderComponent implements OnInit{
       // ทำสิ่งที่ต้องการเมื่อ Dialog ถูกปิด
     });
   }
-  load_pic(){
-    this.http.get<any>('http://localhost/backend/load_pic.php').subscribe(res =>{
-      this.picC = res;
-    });
-  }
-  load_item_po_pick_succ(){
-    this.http.get<any>('http://localhost/backend/load_pick_in_succ.php').subscribe(res =>{
-      this.pick_item_succ = res;
-    })
-  }
-  openDetail(po_from_id:number){
-    console.log(po_from_id);
-    const ref = this.dialogService.open(DialogDetailPickComponent, {
-      header: 'รายละเอียดการรับเข้าวัสดุ',
-      width: 'auto',
-      data: {
-        po_from_id
-      }
-    });
-  }
+
   
 }

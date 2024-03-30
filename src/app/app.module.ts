@@ -64,7 +64,23 @@ import { SumaryAfbComponent } from './sumary-afb/sumary-afb.component';
 import { PasswordModule } from 'primeng/password';
 import { DividerModule } from 'primeng/divider';
 import { RegisterComponent } from './register/register.component';
+import { PickinSuccComponent } from './pickin-succ/pickin-succ.component';
+import { PickInHistoryComponent } from './pick-in-history/pick-in-history.component';
+import { PickOutHisComponent } from './pick-out-his/pick-out-his.component';
+import { PickOutReturnComponent } from './pick-out-return/pick-out-return.component';
+import { EditPermisionUserComponent } from './edit-permision-user/edit-permision-user.component';
+import { AddNewUserComponent } from './add-new-user/add-new-user.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
+import { FileUploadModule } from 'primeng/fileupload';
+import { ImageModule } from 'primeng/image';
+import { SlotItemComponent } from './slot-item/slot-item.component';
+import { DialogEditSlotComponent } from './dialog-edit-slot/dialog-edit-slot.component';
+import { RowItemComponent } from './row-item/row-item.component';
+import { DialogEditRowComponent } from './dialog-edit-row/dialog-edit-row.component';
+import { CheckboxModule } from 'primeng/checkbox';
+import { DialogMapItemComponent } from './dialog-map-item/dialog-map-item.component';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -82,7 +98,16 @@ const routes: Routes = [
   { path: 'pickIn', component: PickInOrderComponent, canActivate: [AuthGuard] },
   { path: 'uq', component: UserReqItemComponent, canActivate: [AuthGuard] },
   { path: 'summa', component: SumaryAfbComponent, canActivate: [AuthGuard] },
+  { path: 'picsucc', component: PickinSuccComponent, canActivate: [AuthGuard] },
+  { path: 'pichis', component: PickInHistoryComponent, canActivate: [AuthGuard] },
+  { path: 'poh', component: PickOutHisComponent, canActivate: [AuthGuard] },
+  { path: 'por', component: PickOutReturnComponent, canActivate: [AuthGuard] },
+  { path: 'edu', component: EditPermisionUserComponent, canActivate: [AuthGuard] },
+  { path: 'slot', component: SlotItemComponent, canActivate: [AuthGuard] },
+  { path: 'row', component: RowItemComponent, canActivate: [AuthGuard] },
+  { path: 'test', component: DialogMapItemComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent},
+  { path: 'fgp', component: ForgotPasswordComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
@@ -118,6 +143,18 @@ const routes: Routes = [
     UserReqItemComponent,
     SumaryAfbComponent,
     RegisterComponent,
+    PickinSuccComponent,
+    PickInHistoryComponent,
+    PickOutHisComponent,
+    PickOutReturnComponent,
+    EditPermisionUserComponent,
+    AddNewUserComponent,
+    ForgotPasswordComponent,
+    SlotItemComponent,
+    DialogEditSlotComponent,
+    RowItemComponent,
+    DialogEditRowComponent,
+    DialogMapItemComponent,
     
     
   ],
@@ -154,7 +191,11 @@ const routes: Routes = [
     TabViewModule,
     ChartModule,
     PasswordModule,
-    DividerModule
+    DividerModule,
+    FileUploadModule,
+    ImageModule,
+    CheckboxModule,
+    RadioButtonModule
   ],
   exports: [RouterModule],
   providers: [AuthGuard],

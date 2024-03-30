@@ -1,0 +1,68 @@
+<app-nav-bar></app-nav-bar>
+<p-toast></p-toast>
+    <p-confirmDialog></p-confirmDialog>
+<br>
+<div class="container">
+    <div class="card">
+      <div class="card-header">
+        <table>
+            <tr>
+                <td>
+                    <h3>รายการวัสดุที่รอคืน
+                    </h3>
+                </td>
+
+            </tr>
+        </table>
+       
+        
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+            <p-table [value]="hisOut" responsiveLayout="stack" [breakpoint]="'960px'">
+                <ng-template pTemplate="header" let-colums>
+                  <tr>
+                    <th>เลขใบเบิกวัสดุ</th>
+                    <th>รูปภาพวัสดุ</th>
+                    <th>วันที่เบิก</th>
+                    <th>ชื่อผู้เบิก</th>
+                    <th>ฝ่าย</th>
+                    <th>รหัสวัสดุ</th>
+                    <th>ชื่อวัสดุ</th>
+                    <th>จำนวนเบิก</th>
+                    <th>หน่วยนับ</th>
+                    <th>สถานะ</th>
+                    <th>ACTION</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-po let-colums="colums">
+                  <tr>
+                    <td>{{po.pick_out_material_form_id}}</td>
+                    <td><p-image src="http://localhost/backend/{{po.pic_path}}" alt="Image" width="100" [preview]="true"></p-image></td>
+                    <td>{{po.pick_out_date}}</td>
+                    <td>{{po.userFullname}}</td>
+                    <td>{{po.userdepart_name}}</td>
+                    <td>{{po.material_id}}</td>
+                    <td>{{po.material_name}}</td>
+                    <td>{{po.pick_out_material_values}}</td>
+                    <td>{{po.unit_name}}</td>
+                
+                        <td [ngClass]="{'text-warning': po.state_id == 15, 'text-success': po.state_id == 14,'text-danger': po.state_id == 3}">
+                            สถานะ:
+                            <ng-container *ngIf="po.state_id == 14">เบิกออกเสร็จสิ้น</ng-container>
+                            <ng-container *ngIf="po.state_id == 15">รอคืนวัสดุ</ng-container>
+
+                          </td>
+                          <td>
+                            <button pButton pRipple label="รับคืนวัสดุ" class="p-button-success" (click)="save($event, po)"></button>
+
+                          </td>
+            
+                  </tr>
+                </ng-template>
+              </p-table>
+            
+        </div>
+      </div>
+    </div>
+  </div>

@@ -22,7 +22,7 @@
             </ng-template>
         </p-table>
         
-        <p-dialog header="เพิ่มวัสดุใหม่เข้าคลังวัสดุ" [(visible)]="visible" [style]="{width: '100vw',height:'100vw'}">
+        <p-dialog header="เพิ่มวัสดุใหม่เข้าคลังวัสดุ" [(visible)]="visible" [style]="{width: '100vw',height:'100hw'}">
             <div class="p-fluid">
                 <div class="p-field">
                     <label for="productName">ชื่อวัสดุ:</label>
@@ -37,8 +37,13 @@
                     <p-dropdown id="materialType" [options]="typeId" [(ngModel)]="selectedType" optionLabel="material_type_name"></p-dropdown>
                 </div>
                 <div class="p-field">
-                    <label for="materialShelf">ชั้นวาง:</label>
-                    <p-dropdown id="materialShelf" [options]="chanWang" [(ngModel)]="selectedchanWang" optionLabel="material_class_shelf_name"></p-dropdown>
+                    <label for="materialShelf">ช่องวาง</label>
+                    <p-dropdown id="materialShelf" [options]="slot" [(ngModel)]="selectedslot" optionLabel="material_slot_name"></p-dropdown>
+                </div>
+                <br>
+                <div class="p-field">
+                    <label for="materialShelf">Upload รูปภาพวัสดุ:</label>
+                    <input type="file" (change)="onFileSelected($event)" >
                 </div>
                 <br>
                 <div class="p-field">
@@ -54,22 +59,34 @@
                 <ng-template pTemplate="header" let-colums>
                     <tr>
                         <th>รหัสวัสดุ</th>
+                        <th>รูปภาพวัสดุ</th>
                         <th>ชื่อวัสดุ</th>
                         <th>จำนวนคงเหลือ</th>
                         <th>หน่วยนับ</th>
                         <th>ประเภทวัสดุ</th>
+                        <th>แถววาง</th>
                         <th>ชั้นวาง</th>
+                        <th>ช่องวาง</th>
+                        <th>สถานะ</th>
                         <th *ngIf="userLv == 3">การกระทำ</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-colums="colums">
                     <tr>
                         <td>{{ rowData.material_id }}</td>
+                        <td><p-image src="http://localhost/backend/{{rowData.pic_path}}" alt="Image" width="100" [preview]="true"></p-image></td>
                         <td>{{ rowData.material_name }}</td>
                         <td>{{ rowData.material_value }}</td>
                         <td>{{ rowData.unit_name }}</td>
                         <td>{{ rowData.material_type_name }}</td>
+                        <td>{{rowData.material_row_name}}</td>
                         <td>{{ rowData.material_class_shelf_name }}</td>
+                        <td>{{rowData.material_slot_name}}</td>
+                        <td [ngClass]="{'text-warning': rowData.state_id == 16, 'text-success': rowData.state_id == 8,'text-danger': rowData.state_id == 9}">
+                            <ng-container *ngIf="rowData.state_id == 8">พร้อมใช้งาน</ng-container>
+                            <ng-container *ngIf="rowData.state_id == 9">ไม่พร้อมใช้งาน</ng-container>
+                            <ng-container *ngIf="rowData.state_id == 16">ชำรุด</ng-container>
+                          </td>
                         <td  *ngIf="userLv == 3">
                             <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="editPrd(rowData.material_id)"></button> <!-- ปุ่มแก้ไข -->
                             &nbsp;
@@ -83,26 +100,41 @@
                 <ng-template pTemplate="header" let-colums>
                     <tr>
                         <th>รหัสวัสดุ</th>
+                        <th>รูปภาพวัสดุ</th>
                         <th>ชื่อวัสดุ</th>
                         <th>จำนวนคงเหลือ</th>
                         <th>หน่วยนับ</th>
                         <th>ประเภทวัสดุ</th>
+                        <th>แถววาง</th>
                         <th>ชั้นวาง</th>
-                        <th *ngIf="userLv == 3">การกระทำ</th>
+                        <th>ช่องวาง</th>
+                        <th>สถานะ</th>
+                        <th *ngIf="userLv == 3">ลบ</th>
+                        <th *ngIf="userLv == 3">แก้ไข</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-colums="colums">
                     <tr>
                         <td>{{ rowData.material_id }}</td>
+                        <td><p-image src="http://localhost/backend/{{rowData.pic_path}}" alt="Image" width="100" [preview]="true"></p-image></td>
                         <td>{{ rowData.material_name }}</td>
                         <td>{{ rowData.material_value }}</td>
                         <td>{{ rowData.unit_name }}</td>
                         <td>{{ rowData.material_type_name }}</td>
+                        <td>{{rowData.material_row_name}}</td>
                         <td>{{ rowData.material_class_shelf_name }}</td>
+                        <td>{{rowData.material_slot_name}}</td>
+                        <td [ngClass]="{'text-warning': rowData.state_id == 16, 'text-success': rowData.state_id == 8,'text-danger': rowData.state_id == 9}">
+                            <ng-container *ngIf="rowData.state_id == 8">พร้อมใช้งาน</ng-container>
+                            <ng-container *ngIf="rowData.state_id == 9">ไม่พร้อมใช้งาน</ng-container>
+                            <ng-container *ngIf="rowData.state_id == 16">ชำรุด</ng-container>
+                          </td>
                         <td  *ngIf="userLv == 3">
-                            <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="editPrd(rowData.material_id)"></button> <!-- ปุ่มแก้ไข -->
-                            &nbsp;
+                            
                             <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="confirm1($event,rowData.material_id)"></button> <!-- ปุ่มลบ -->
+                          </td>
+                          <td  *ngIf="userLv == 3">
+                            <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="editPrd(rowData.material_id)"></button> <!-- ปุ่มแก้ไข -->
                           </td>
                     </tr>
                 </ng-template>

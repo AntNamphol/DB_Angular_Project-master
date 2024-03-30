@@ -1,0 +1,68 @@
+<app-nav-bar></app-nav-bar>
+<br>
+<div class="container">
+    <div class="card">
+      <div class="card-header">
+        <table>
+            <tr>
+                <td>
+                    <h3>รายการแถววางของทั้งหมด</h3>
+                </td>
+                <td>
+                    <p-button (click)="showDialog()" icon="pi pi-plus" label="เพิ่มแถววางของ"></p-button>
+                    <p-dialog header="เพิ่มแถววางของ" [(visible)]="visible">
+                        <input type="text" pInputText [(ngModel)]="rowNew" placeholder="เพิ่มแถววางของ" /> &nbsp;
+                        <p-button (click)="confirm()" icon="pi pi-check" label="บันทึก"></p-button>
+                    </p-dialog>
+                </td>
+            </tr>
+        </table>
+       
+        
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+            <p-table [value]="row" responsiveLayout="stack" [breakpoint]="'960px'">
+                <ng-template pTemplate="header" let-colums>
+                  <tr>
+                    <th>ไอดีแถววางของ</th>
+                    <th>ชื่อแถววางของ</th>
+                    <th>การกระทำ</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-row let-colums="colums">
+                  <tr>
+                        <td>{{row.material_row_id}}</td>
+                        <td>{{row.material_row_name}}</td>
+                        <td>
+                            <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="editrow(row.material_row_id)"></button> <!-- ปุ่มแก้ไข -->
+                            &nbsp;
+                            <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="confirm1($event,row.material_row_id)"></button> <!-- ปุ่มลบ -->
+                          </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            
+        </div>
+      </div>
+    </div>
+  </div>
+  <p-toast></p-toast>
+<!-- Confirm dialog for the first case -->
+<p-confirmDialog #cd>
+    <ng-template pTemplate="headless" let-message>
+        <div class="flex flex-column align-items-center p-5 surface-overlay border-round">
+            <div class="border-circle bg-primary inline-flex justify-content-center align-items-center h-6rem w-6rem -mt-8">
+                <i class="pi pi-question text-5xl"></i>
+            </div>
+            <span class="font-bold text-2xl block mb-2 mt-4">{{ message.header }}</span>
+            <p class="mb-0">{{ message.message }}</p>
+            <div class="flex align-items-center gap-2 mt-4">
+                <button pButton label="Save" (click)="cd.accept()" class="w-8rem"></button>
+                <button pButton label="Cancel" (click)="cd.reject()" class="p-button-outlined w-8rem "></button>
+            </div>
+        </div>
+    </ng-template>
+</p-confirmDialog>
+
+<!-- Confirm dialog for the second case -->

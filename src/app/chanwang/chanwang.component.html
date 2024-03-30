@@ -10,7 +10,7 @@
                 </td>
                 <td>
                     <p-button (click)="showDialog()" icon="pi pi-plus" label="เพิ่มชั้นวาง"></p-button>
-                    <p-dialog header="เพิ่มชั้นวาง" [(visible)]="visible" [style]="{width: '100vw'}">
+                    <p-dialog header="เพิ่มชั้นวาง" [(visible)]="visible">
                         <input type="text" pInputText [(ngModel)]="chanWangNew" placeholder="เพิ่มชั้นวาง" /> &nbsp;
                         <p-button (click)="confirm()" icon="pi pi-check" label="บันทึก"></p-button>
                     </p-dialog>

@@ -4,6 +4,10 @@ import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
 import { Router } from '@angular/router';
 
+interface status {
+  name: string;
+  code: string;
+}
 
 @Component({
   selector: 'app-dialog-edit-prd',
@@ -18,10 +22,14 @@ export class DialogEditPrdComponent implements OnInit {
   edit_prd_unit: string = '';
   selectedUnit: string = '';
   selectedType: string = '';
-  selectedchanWang: string = '';
   unitId: any;
   typeId: any;
   chanWang: any;
+  staTus:status[] | undefined;
+  selecStatus:string='';
+  slot:any;
+  selectedslot:string='';
+
   constructor(private http: HttpClient, public config: DynamicDialogConfig, public ref: DynamicDialogRef, private confirmationService: ConfirmationService, private messageService: MessageService, private router: Router) {
 
   }
@@ -31,8 +39,13 @@ export class DialogEditPrdComponent implements OnInit {
     this.load_prd();
     this.load_unitId();
     this.load_typeId();
-    this.load_chanwang();
-    this.load_chanwang();
+    this.load_slot();
+    this.staTus = [
+      { name: 'พร้อมใช้งาน', code: '8' },
+      { name: 'ชำรุด', code: '16' },
+      { name: 'หมดอายุ', code: '17' },
+  ];
+    
   }
 
   load_prd() {
@@ -53,19 +66,15 @@ export class DialogEditPrdComponent implements OnInit {
       this.typeId = response;
     });
   }
-  load_chanwang() {
-    this.http.get<any[]>('http://localhost/backend/load_chanwang.php').subscribe(response => {
-      this.chanWang = response;
-    });
-  }
   save_edit_prd() {
     const url = 'http://localhost/backend/edit_prd.php';
     const data = {
       edit_prd_name: this.edit_prd_name,
       selectedUnit: this.selectedUnit,
       selectedType: this.selectedType,
-      selectedchanWang: this.selectedchanWang,
-      material_id: this.material_id
+      material_id: this.material_id,
+      selecStatus:this.selecStatus,
+      selectedslot: this.selectedslot,
     };
     console.log(data);
     this.http.post<any>(url, data).subscribe((res) => {
@@ -80,6 +89,10 @@ export class DialogEditPrdComponent implements OnInit {
       this.messageService.add({ severity: 'error', summary: 'Error', detail: 'เกิดข้อผิดพลาดในการส่งข้อมูล', life: 3000 });
     });
   }
-
+  load_slot(){
+    this.http.get<any[]>('http://localhost/backend/load_slot.php').subscribe(response =>{
+      this.slot = response;
+    });
+  }
 }
 

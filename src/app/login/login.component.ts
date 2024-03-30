@@ -34,6 +34,7 @@ export class LoginComponent {
         sessionStorage.setItem('user_lname', response.user_lname);
         sessionStorage.setItem('user_id', response.user_id);
         sessionStorage.setItem('userlv_id', response.userlv_id);
+        sessionStorage.setItem('username', JSON.stringify(response.username));
 
         console.log(response);
 
@@ -58,5 +59,8 @@ export class LoginComponent {
   }
   register(){
     this.router.navigate(['register']);
+  }
+  forgotPass(){
+    this.router.navigate(['fgp']);
   }
 }

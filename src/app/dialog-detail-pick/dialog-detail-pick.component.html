@@ -1,22 +1,7 @@
-<div class="container">
-    <div class="card">
-      <div class="card-header">
-        <table>
-            <tr>
-                <td>
-                    <h3>รายการประวัติรับเข้าวัสดุ
-                    </h3>
-                </td>
 
-            </tr>
-        </table>
-       
-        
-      </div>
-      <div class="card-body">
-        <div class="form-group">
-            <p-table [value]="pick_detail">
-                <ng-template pTemplate="header">
+
+            <p-table [value]="pick_detail" responsiveLayout="stack" [breakpoint]="'960px'">
+                <ng-template pTemplate="header" let-colums>
                   <tr>
                     <th>รหัสรับเข้าวัสดุ</th>
                     <th>วันที่รับเข้า</th>
@@ -28,7 +13,7 @@
                     <th>หน่วยนับ</th>
                   </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-pc>
+                <ng-template pTemplate="body" let-pc let-colums="colums">
                   <tr>
                       <td>
                         {{pc.pick_in_id}}
@@ -51,8 +36,4 @@
                   </tr>
                 </ng-template>
               </p-table>
-            
-        </div>
-      </div>
-    </div>
-  </div>
+     

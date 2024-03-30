@@ -1,0 +1,9 @@
+<div *ngFor="let row of rowData">
+    <div class="container">
+      <p>{{ row.material_row_name }}</p>
+      <div *ngFor="let slot of slotData">
+        <div class="cell layer1" [attr.id]="'cell-' + row.material_row_id + '-' + slot.material_slot_id">{{ slot.material_slot_name }}</div>
+      </div>
+    </div>
+  </div>
+  

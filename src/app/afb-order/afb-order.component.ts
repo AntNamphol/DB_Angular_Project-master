@@ -27,17 +27,21 @@ export class AfbOrderComponent implements OnInit {
   maysed: string = '';
   unitId:any;
   selectedUnit:any;
+  filteredPrdList:any;
+  searchText:string='';
   constructor(private http: HttpClient,private confirmationService: ConfirmationService, private messageService: MessageService,private router:Router) { }
   ngOnInit() {
     this.userId = sessionStorage.getItem('user_id');
+    this.loadload();
   }
 
   addItem(item: any) {
     this.selectedItems.push({
-      code: item.code, // เพิ่ม material_id ที่ได้รับมาจาก item
-      name: item.name,
+      code: item.material_id, // เพิ่ม material_id ที่ได้รับมาจาก item
+      name: item.material_name,
       quantity: item.quantity,
-      unit_name: item.unit_name
+      unit_name: item.unit_name,
+      pic_path:item.pic_path
     });
     
     console.log(item.unit_name);
@@ -116,15 +120,21 @@ export class AfbOrderComponent implements OnInit {
     this.visible = true;
   }
 
-  search(event: any) {
-    const query = event.query; // รับคำค้นหาจากผู้ใช้
-    this.http.get<any[]>('http://localhost/backend/load_item.php?query=' + query)
-      .subscribe(response => {
-        // กรองข้อมูลโดยใช้คำค้นหา
-        const filteredItems = response.filter(item => item.material_name.toLowerCase().includes(query.toLowerCase()));
-        // แปลงข้อมูลที่กรองแล้วเป็นรูปแบบที่ AutoComplete ใช้
-        this.stock = filteredItems.map(item => ({ name: item.material_name, code: item.material_id,unitId:item.unit_id,unit_name:item.unit_name }));
-      });
+  search() {
+    // กรองข้อมูลวัสดุโดยใช้ข้อความที่ค้นหาในชื่อวัสดุ, หน่วยนับ, และชั้นวาง
+    this.filteredPrdList = this.stock.filter((prd: { material_name: string; unit_name: string; material_class_shelf_name: string; }) =>
+      prd.material_name.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      prd.unit_name.toLowerCase().includes(this.searchText.toLowerCase()) ||
+      prd.material_class_shelf_name.toLowerCase().includes(this.searchText.toLowerCase())
+    );
+    console.log(this.filteredPrdList);
+  }
+  loadload(){
+    this.http.get<any[]>('http://localhost/backend/load_item.php')
+    .subscribe(res => {
+      this.stock = res;
+    });
+  }
   }
 
-}
+

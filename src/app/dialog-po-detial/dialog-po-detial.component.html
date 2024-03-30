@@ -2,6 +2,7 @@
     <ng-template pTemplate="header" let-colums>
         <tr>
             <th>รหัสวัสดุ</th>
+            <th>รูปภาพวัสดุ</th>
             <th>ชื่อวัสดุ</th>
             <th>จำนวนสั่ง</th>
             <th>ราคา/หน่วย</th>
@@ -11,6 +12,7 @@
     <ng-template pTemplate="body" let-rowData let-colums="colums">
         <tr>
             <td>รหัสวัสดุ:{{ rowData.material_id }}</td>
+            <td><p-image src="http://localhost/backend/{{rowData.pic_path}}" alt="Image" width="100" [preview]="true"></p-image></td>
             <td>ชื่อวัสดุ:{{ rowData.material_name }}</td>
             <td>
                 จำนวนสั่ง:{{ rowData.item_values }}

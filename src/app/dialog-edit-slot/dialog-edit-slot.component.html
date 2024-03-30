@@ -1,0 +1,22 @@
+
+<div *ngFor="let cann of slot"><p-toast></p-toast>
+    <div class="p-fluid">
+        <div class="p-field">
+          <label for="materialRow">เลือกแถว</label>
+          <p-dropdown id="materialRow" [options]="row" [(ngModel)]="selectedRow" optionLabel="material_row_name" placeholder="{{cann.material_row_name}}"></p-dropdown>
+      </div>
+      <div class="p-field">
+        <label for="materialShelf">เลือกชั้น</label>
+        <p-dropdown id="materialShelf" [options]="chanWang" [(ngModel)]="selectedchanWang" optionLabel="material_class_shelf_name" placeholder="{{cann.material_class_shelf_name}}"></p-dropdown>
+    </div>
+    <div class="p-field">
+        <label for="materialShelf">แก้ไขช่องวาง</label>
+        <input type="text" pInputText [(ngModel)]="edit_slot" placeholder="{{cann.material_slot_name}}"/>
+    </div>
+
+
+
+    &nbsp;
+    <button pButton pRipple label="Submit" class="p-button-success" (click)="save_eiei($event)"></button>
+    </div>
+    <p-confirmDialog></p-confirmDialog>

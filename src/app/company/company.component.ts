@@ -18,8 +18,8 @@ export class CompanyComponent implements OnInit{
   email_comp:string='';
   comp_address:string='';
   companies:any[] = [];
-  
-
+  compS:any;
+  searchComName:string='';
   constructor(private http:HttpClient,private messageService: MessageService,private dialogService: DialogService){
 
   }
@@ -27,7 +27,11 @@ export class CompanyComponent implements OnInit{
   ngOnInit(): void {
     this.load_comp()
   }
-
+  searchAfbIdChange(company_name: string) {
+    this.compS = this.companies.filter(item => item.company_name.includes(company_name));
+    console.log(this.compS);
+  }
+  
   showDialog() {
       this.visible = true;
   }
@@ -47,6 +51,7 @@ export class CompanyComponent implements OnInit{
         (response) => {
           this.messageService.add({ severity: 'success', summary: 'สำเร็จ', detail: 'เพิ่มรายชื่อบริษัทเสร็จสิ้น' });
           this.load_comp();
+          this.visible = false;
         },
         (error) => {
           console.error('เกิดข้อผิดพลาดในการส่งข้อมูล:', error);

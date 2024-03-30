@@ -14,6 +14,8 @@ export class HistoryafbComponent implements OnInit{
   userLv:any;
   afborder:any;
   afbData: any[] = [];
+  afborderFiltered: any[] = []; // ข้อมูลที่ถูกกรอง
+  searchAfbId: string='';
   constructor(private http:HttpClient,private dialogService: DialogService){
 
   }
@@ -32,7 +34,7 @@ export class HistoryafbComponent implements OnInit{
     this.http.post(url, data, { headers }).subscribe(
       (response: any) => {
         console.log('ตอบกลับจากเซิร์ฟเวอร์:', response);
-        this.afbData = response;
+        this.afbData = response.map((item: { afb_from_id: any; user_id: any; afb_comment: any; afb_date: any; state_id: any; afb_item_id: any; material_id: any; material_name: any; afb_item_values: any; user_fullname: any; userdepart_name: any; }) => ({ afbId: item.afb_from_id, userId: item.user_id,afb_comment: item.afb_comment,afb_date:item.afb_date,state_id:item.state_id,afb_item_id:item.afb_item_id,material_id:item.material_id,material_name:item.material_name,afb_item_values:item.afb_item_values,userFullname:item.user_fullname,userdepart_name:item.userdepart_name }));
       },
       (error) => {
         console.error('เกิดข้อผิดพลาดในการส่งข้อมูล:', error);
@@ -72,5 +74,8 @@ export class HistoryafbComponent implements OnInit{
       console.log('Dialog closed:', result);
       // ทำสิ่งที่ต้องการเมื่อ Dialog ถูกปิด
     });
+  }
+    searchAfbIdChange(afbId: string) {
+    this.afborderFiltered = this.afbData.filter((item: { afbId: string | string[]; }) => item.afbId.includes(afbId));
   }
 }

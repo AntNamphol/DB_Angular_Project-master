@@ -1,11 +1,13 @@
-<app-nav-bar></app-nav-bar><p-toast></p-toast>
+<app-nav-bar></app-nav-bar>
 <p-dialog header="เพิ่มใบขอซื้อวัสดุ" [(visible)]="visible" [style]="{ width: '100vw', height: '100vh' }" >
     <div class="table-wrapper">
-        <p-autoComplete [suggestions]="stock" [(ngModel)]="selectedItem" field="name" [showClear]="true" placeholder="ค้าหาวัสดุ" (completeMethod)="search($event)"></p-autoComplete>
-        <p-table [value]="stock">
+        <input type="text" pInputText [(ngModel)]="searchText" placeholder="ค้นหา" (ngModelChange)="search()"/>
+
+        <p-table [value]="filteredPrdList" responsiveLayout="stack" [breakpoint]="'960px'" *ngIf="searchText">
             <ng-template pTemplate="header">
                 <tr>
                     <th>รายการวัสดุทั้งหมด</th>
+                    <th>ตัวอย่างรูปภาพวัสดุ</th>
                     <th>จำนวนขอซื้อ</th>
                     <th>หน่วยนับ</th>
                     <th>ACTION</th>
@@ -13,10 +15,32 @@
             </ng-template>
             <ng-template pTemplate="body" let-item>
                 <tr>
-                    <td>{{ item.name }}</td>
-                    <td><input type="text" pInputText [(ngModel)]="item.quantity" /></td>
+                    <td>{{ item.material_name }}</td>
+                    <td><p-image src="http://localhost/backend/{{item.pic_path}}" alt="Image" width="100" [preview]="true"></p-image></td>
+                    <td><input type="text" pInputText [(ngModel)]="item.quantity" placeholder="จำนวนขอซื้อ" /></td>
                     <td>{{item.unit_name}}</td>
                     <td><p-button label="+" (click)="addItem(item)" severity="success"></p-button></td>
+                </tr>
+            </ng-template>
+        </p-table>
+
+        <p-table [value]="stock" responsiveLayout="stack" [breakpoint]="'960px'">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>รายการวัสดุทั้งหมด</th>
+                    <th>ตัวอย่างรูปภาพวัสดุ</th>
+                    <th>จำนวนขอซื้อ</th>
+                    <th>หน่วยนับ</th>
+                    <th>ACTION</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-item>
+                <tr>
+                    <td>{{ item.material_name }}</td>
+                    <td><p-image src="http://localhost/backend/{{item.pic_path}}" alt="Image" width="100" [preview]="true"></p-image></td>
+                    <td><input type="text" pInputText [(ngModel)]="item.quantity" /></td>
+                    <td>{{item.unit_name}}</td>
+                    <td><p-button label="+เพิ่ม" (click)="addItem(item)" severity="success"></p-button></td>
                 </tr>
             </ng-template>
         </p-table>
@@ -50,6 +74,7 @@
                             <tr>
                                 <th>รายการสินค้า</th>
                                 <th>รหัสวัสดุ</th>
+                                <th>รูปภาพวัสดุ</th>
                                 <th>จำนวน</th>
                                 <th>หน่วยนับ</th>
                                 <th>แก้ไข</th>
@@ -60,6 +85,7 @@
                             <tr>
                                 <td>รายการสินค้า:{{ item.name }}</td>
                                 <td>รหัสวัสดุ:{{ item.code }}</td>
+                                <td><p-image src="http://localhost/backend/{{item.pic_path}}" alt="Image" width="100" [preview]="true"></p-image></td>
                                 <td>
                                     <ng-container *ngIf="!item.editing; else editCell">
                                         จำนวน:{{ item.quantity }}
@@ -69,6 +95,7 @@
                                         จำนวน:<input type="text" pInputText [(ngModel)]="item.quantity" required/>
                                     </ng-template>
                                 </td>
+                               
                                 <td>หน่วยนับ:{{ item.unit_name }}</td>
                                 <td>
                                     <button pButton type="button" label="{{ item.editing ? 'บันทึก' : 'แก้ไข' }}" (click)="toggleEdit(item)" class="p-button-warning"></button>

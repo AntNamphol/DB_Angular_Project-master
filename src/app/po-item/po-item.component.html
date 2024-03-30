@@ -80,6 +80,7 @@
             <ng-template pTemplate="header" let-colums>
               <tr>
                 <th>รหัสวัสดุ</th>
+                <th>รูปภาพวัสดุ</th>
                 <th>ชื่อวัสดุ</th>
                 <th>จำนวน</th>
                 <th>หน่วยนับ</th>
@@ -89,6 +90,7 @@
             <ng-template pTemplate="body" let-item let-i="index" let-colums="colums">
               <tr>
                 <td>{{ item.material_id }}</td>
+                <td><p-image src="http://localhost/backend/{{item.pic_path}}" alt="Image" width="100" [preview]="true"></p-image></td>
                 <td>{{ item.material_name }}</td>
                 <td>{{ item.afb_item_values }}</td>
                 <td>{{item.unit_name}}</td>

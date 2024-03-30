@@ -13,8 +13,12 @@
             <p-dropdown id="materialType" [options]="typeId" [(ngModel)]="selectedType" optionLabel="material_type_name" placeholder="{{prd.material_type_name}}"></p-dropdown>
         </div>
         <div class="p-field">
-            <label for="materialShelf">ชั้นวาง:</label>
-            <p-dropdown id="materialShelf" [options]="chanWang" [(ngModel)]="selectedchanWang" optionLabel="material_class_shelf_name" placeholder="{{prd.material_class_shelf_name}}"></p-dropdown>
+            <label for="materialSlot">ช่องวาง:</label>
+            <p-dropdown id="materialSlot" [options]="slot" [(ngModel)]="selectedslot" optionLabel="material_slot_name" placeholder="{{prd.material_slot_name}}"></p-dropdown>
+        </div>
+        <div class="p-field">
+            <label for="materialShelf">สถานะ:</label>
+            <p-dropdown id="materialShelf" [options]="staTus" [(ngModel)]="selecStatus" optionLabel="name" placeholder="{{prd.state_name}}"></p-dropdown>
         </div>
         <br>
         <div class="p-field">
