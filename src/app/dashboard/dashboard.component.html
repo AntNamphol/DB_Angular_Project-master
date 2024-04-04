@@ -1,5 +1,11 @@
 <app-nav-bar></app-nav-bar>
-
+<div *ngIf="userLv == 2">
+    <p-fieldset legend="ใบขอซื้อของท่าน" [style]="{width:'350px'}" class="kuy">
+        <div *ngFor="let afbb of afbData;let i = index">
+            <h2 style="color: green;">{{ i+1 }} ใบ</h2>
+        </div>
+    </p-fieldset>
+</div>
 <div *ngIf="userLv == 4" class="box-eiei">
     <p-fieldset legend="ใบขอซื้อ" [style]="{width:'350px'}" class="kuy">
         <div *ngFor="let afbb of afb | keyvalue">
@@ -21,7 +27,6 @@
             <h2 style="color: green;">{{ afbb.value }} ใบ</h2>
         </div>
     </p-fieldset>
-    
 </div>
 <div *ngIf="userLv == 3" class="box-eiei">
     <p-fieldset legend="รายการวัสดุในคลัง" [style]="{width:'350px'}" class="kuy">

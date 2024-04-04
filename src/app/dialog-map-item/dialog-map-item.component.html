@@ -1,9 +1,209 @@
-<div *ngFor="let row of rowData">
-    <div class="container">
-      <p>{{ row.material_row_name }}</p>
-      <div *ngFor="let slot of slotData">
-        <div class="cell layer1" [attr.id]="'cell-' + row.material_row_id + '-' + slot.material_slot_id">{{ slot.material_slot_name }}</div>
+<table class="border-box" *ngFor=" let data of rowData">
+  <tr  class="border-box2">
+    <td><h3>{{data.material_row_name}}</h3></td>
+  </tr>
+  <tr>
+    <td class="border-box2">
+      <div *ngIf="data.material_class_shelf_id == 3" style="color: red;">
+        {{data.material_class_shelf_name}}
       </div>
-    </div>
-  </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 1 && data.material_class_shelf_id == 3" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 2 && data.material_class_shelf_id == 3" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 3 && data.material_class_shelf_id == 3" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 4 && data.material_class_shelf_id == 3" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 5 && data.material_class_shelf_id == 3" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 6 && data.material_class_shelf_id == 3" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 7 && data.material_class_shelf_id == 3" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 8 && data.material_class_shelf_id == 3" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 9 && data.material_class_shelf_id == 3" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 10 && data.material_class_shelf_id == 3" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 11 && data.material_class_shelf_id == 3" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 12 && data.material_class_shelf_id == 3" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+  </tr>
   
+
+  <tr class="border-box">
+    <td>
+      <div *ngIf="data.material_class_shelf_id == 2" style="color: red;">
+        {{data.material_class_shelf_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 1 && data.material_class_shelf_id == 2" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 2 && data.material_class_shelf_id == 2" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 3 && data.material_class_shelf_id == 2" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 4 && data.material_class_shelf_id == 2" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 5 && data.material_class_shelf_id == 2" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 6 && data.material_class_shelf_id == 2" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 7 && data.material_class_shelf_id == 2" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 8 && data.material_class_shelf_id == 2" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 9 && data.material_class_shelf_id == 2" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 10 && data.material_class_shelf_id == 2" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 11 && data.material_class_shelf_id == 2" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 12 && data.material_class_shelf_id == 2" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+  </tr>
+
+  <tr class="border-box">
+    <td>
+      <div *ngIf="data.material_class_shelf_id == 1" style="color: red;">
+        {{data.material_class_shelf_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 1 && data.material_class_shelf_id == 1" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 2 && data.material_class_shelf_id == 1" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 3 && data.material_class_shelf_id == 1" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 4 && data.material_class_shelf_id == 1" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 5 && data.material_class_shelf_id == 1" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 6 && data.material_class_shelf_id == 1" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 7 && data.material_class_shelf_id == 1" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 8 && data.material_class_shelf_id == 1" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 9 && data.material_class_shelf_id == 1" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 10 && data.material_class_shelf_id == 1" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 11 && data.material_class_shelf_id == 1" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+    <td class="border-box2">
+      <div *ngIf="data.material_row_id == 12 && data.material_class_shelf_id == 1" style="color: green;">
+        {{data.material_slot_name}}
+      </div>
+    </td>
+  </tr>
+</table>

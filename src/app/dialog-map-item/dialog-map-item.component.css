@@ -1,31 +1,9 @@
-.container {
-    display: grid;
-    grid-template-columns: repeat(13, 1fr);
-    gap: 10px;
+.border-box{
+    border: 1px solid black;
 }
-
-.cell {
-    display: flex;
-    justify-content: center;
+.border-box2{
     align-items: center;
-    width: calc(100% / 12);
+    width: 8vw;
     height: 50px;
-    border: 1px solid #ccc;
-    width: 50px;
-}
-
-/* ใส่สีพื้นหลังเซลล์ */
-.layer1 .cell:nth-child(12n+1),
-.layer2 .cell:nth-child(12n+2),
-.layer3 .cell:nth-child(12n+3),
-.layer4 .cell:nth-child(12n+4),
-.layer5 .cell:nth-child(12n+5),
-.layer6 .cell:nth-child(12n+6),
-.layer7 .cell:nth-child(12n+7),
-.layer8 .cell:nth-child(12n+8),
-.layer9 .cell:nth-child(12n+9),
-.layer10 .cell:nth-child(12n+10),
-.layer11 .cell:nth-child(12n+11),
-.layer12 .cell:nth-child(12n+12) {
-    background-color: #f0f0f0;
+    border: 1px solid black;
 }

@@ -16,8 +16,6 @@
           
             </tr>
         </table>
-       
-        
       </div>
       <div class="card-body">
         <div class="form-group">
@@ -35,7 +33,7 @@
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-afbItem let-columns="columns">
-                  <tr>
+                  <tr *ngIf="afbItem.userdepart_id === userdepart_id">
                     <td>เลขที่ใบขอซื้อ:{{ afbItem.afbId }}</td>
                     <td>ผู้ขอซื้อ:{{ afbItem.userFullname }}</td>
                     <td>ฝ่าย:{{ afbItem.userdepart_name}}</td>
@@ -77,12 +75,12 @@
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-afbItem let-columns="columns">
-                  <tr>
-                    <td>เลขที่ใบขอซื้อ:{{ afbItem.afbId }}</td>
-                    <td>ผู้ขอซื้อ:{{ afbItem.userFullname }}</td>
-                    <td>ฝ่าย:{{ afbItem.userdepart_name}}</td>
-                    <td>หมายเหตุ:{{ afbItem.afb_comment }}</td>
-                    <td>วันที่:{{ afbItem.afb_date }}</td>
+                  <tr *ngIf="userLv == 4 || afbItem.userdepart_id == userdepart_id">
+                    <td>เลขที่ใบขอซื้อ: {{ afbItem.afbId }}</td>
+                    <td>ผู้ขอซื้อ: {{ afbItem.userFullname }}</td>
+                    <td>ฝ่าย: {{ afbItem.userdepart_name }}</td>
+                    <td>หมายเหตุ: {{ afbItem.afb_comment }}</td>
+                    <td>วันที่: {{ afbItem.afb_date }}</td>
                     <td [ngClass]="{'text-warning': afbItem.state_id == 1 || afbItem.state_id == 5 || afbItem.state_id == 11, 'text-success': afbItem.state_id == 2 || afbItem.state_id == 10,'text-danger': afbItem.state_id == 3}">
                       สถานะ:
                       <ng-container *ngIf="afbItem.state_id == 1">รออนุมัติ/จากหัวหน้าฝ่าย</ng-container>

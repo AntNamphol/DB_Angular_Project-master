@@ -4,6 +4,8 @@ import { ProductService } from '../product.service';
 import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { DialogEditPrdComponent } from '../dialog-edit-prd/dialog-edit-prd.component';
+import { DialogMapItemComponent } from '../dialog-map-item/dialog-map-item.component';
+
 
 
 @Component({
@@ -128,6 +130,21 @@ export class ProductListComponent implements OnInit{
       this.row = response;
     });
   }
+  openMap(material_id:number){
+    
+    const ref = this.dialogService.open(DialogMapItemComponent, {
+      header: 'ที่ตั้งวัสดุ',
+      width: '100vw',
+      height:'100hw',
+      data: {
+        material_id: material_id
+      }
+    });
+    ref.onClose.subscribe((result) => {
+      console.log('Dialog closed:', result);
+      // ทำสิ่งที่ต้องการเมื่อ Dialog ถูกปิด
+    });
+  }
   saveProduct(){
     if(this.prdNew != ''){
       const url = 'http://localhost/backend/add_new_prd_name.php';
@@ -136,11 +153,8 @@ export class ProductListComponent implements OnInit{
         selectedType: JSON.stringify(this.selectedType),
         selectedUnit: JSON.stringify(this.selectedUnit),
         selectedslot: JSON.stringify(this.selectedslot),
-        
         file: this.selectedFile
     };
-
-    // สร้าง FormData object เพื่อรวมข้อมูลและไฟล์ที่จะอัปโหลด
     const formData = new FormData();
     formData.append('data', JSON.stringify(data));
     formData.append('file', this.selectedFile);

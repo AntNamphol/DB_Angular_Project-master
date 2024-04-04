@@ -34,15 +34,19 @@ export class LoginComponent {
         sessionStorage.setItem('user_id', response.user_id);
         sessionStorage.setItem('userlv_id', response.userlv_id);
         sessionStorage.setItem('username', JSON.stringify(response.username));
-
-        console.log(response);
-
+        sessionStorage.setItem('userdepart_id', response.userdepart_id);
+        
         // Redirect to the dashboard if logged in
         if (this.authService.isLoggedIn()) {
           this.router.navigate(['/dashboard']);
         } else {
           console.log('Please log in first.');
         }
+      },
+      (error) => {
+        // Handle login error
+        console.log(error);
+        alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
       }
     );
   }

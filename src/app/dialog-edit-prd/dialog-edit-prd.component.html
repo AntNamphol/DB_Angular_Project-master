@@ -20,6 +20,10 @@
             <label for="materialShelf">สถานะ:</label>
             <p-dropdown id="materialShelf" [options]="staTus" [(ngModel)]="selecStatus" optionLabel="name" placeholder="{{prd.state_name}}"></p-dropdown>
         </div>
+        <div class="p-field">
+            <label for="materialShelf">Upload แก้ไขรูปภาพวัสดุ:</label>
+            <input type="file"  (change)="onFileSelected($event)"  >
+        </div>
         <br>
         <div class="p-field">
             <button pButton label="บันทึก" icon="pi pi-check"  class="p-button-success" (click)="save_edit_prd()"></button>

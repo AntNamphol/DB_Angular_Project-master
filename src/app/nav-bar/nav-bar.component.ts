@@ -5,6 +5,10 @@ import { MenuItem } from 'primeng/api';
 import { ExcelService } from '../excel.service';
 import { ExcelPicoutService } from '../excel-picout.service';
 import { ExcelPoService } from '../excel-po.service';
+import { TotalItemService } from '../total-item.service';
+import { PickInReportService } from '../pick-in-report.service';
+
+
 
 
 
@@ -23,7 +27,7 @@ export class NavBarComponent implements OnInit {
   items: MenuItem[] | undefined;
   userlv_id: any;
 
-  constructor(private router: Router, private confirmationService: ConfirmationService,private excelService: ExcelService,private excelPicoutService:ExcelPicoutService,private ExcelPoService:ExcelPoService) { }
+  constructor(private router: Router, private confirmationService: ConfirmationService,private excelService: ExcelService,private excelPicoutService:ExcelPicoutService,private ExcelPoService:ExcelPoService,private TotalItemService:TotalItemService,private PickInReportService:PickInReportService) { }
 
   ngOnInit(): void {
     this.username = sessionStorage.getItem('username');
@@ -121,6 +125,23 @@ export class NavBarComponent implements OnInit {
               },
               
             ]
+          },
+          {
+            label:'การออกรายงาน',
+            icon:'pi pi-print',
+            visible: this.userlv_id == 4,
+            items:[
+              {
+                label:'การออกรายงานใบสั่งซื้อ',
+                icon:'pi pi-print',
+                command:()=> this.reportPo(),
+              },
+              {
+                label:'งบประมาณที่ใช้',
+                icon:'pi pi-print',
+                command:() => this.navSumma(),
+              }
+            ]
           }
         ]
       },
@@ -217,44 +238,32 @@ export class NavBarComponent implements OnInit {
               }
 
             ]
+            
           }
-        ]
-      },
-      {
-        label: 'REPORT',
-        icon: 'pi pi-fw pi-print',
-        visible: this.userlv_id == 4 || this.userlv_id == 3 ,
-        items: [
-          {
-            label: 'รายงานงบที่ใช้ทั้งหมด',
-            icon: 'pi pi-fw pi-print',
-            command: () => this.navSumma(),
-            visible: this.userlv_id == 4,
-          },
-          {
-            label: 'รายการวัสดุที่ทำการขอซื้อและสั่งซื้อบ่อย',
-            icon: 'pi pi-fw pi-print',
-            visible: this.userlv_id == 4,
-            command: () => this.reportPo(),
-          },
-          {
-            label:'ฝ่ายที่ขอซื้อบ่อยที่สุด',
-            icon: 'pi pi-fw pi-print',
-            visible: this.userlv_id == 4,
-          }
-          ,{
-            label: 'รายงานวัสดุในคลัง',
-            icon: 'pi pi-fw pi-print',
-            visible: this.userlv_id == 3,
-            command:() => this.rest(),
-          }
-          ,{
-            label: 'รายงานเบิกออกวัสดุ',
-            icon: 'pi pi-fw pi-print',
-            visible: this.userlv_id == 3,
-            command:() => this.picout(),
-          }
-          
+          ,
+              {
+                label:'การออกรายงาน',
+                icon:'pi pi-print',
+                visible: this.userlv_id == 3,
+                items:[
+                  {
+                    label:'ออกรายงานวัสดุคงคลัง',
+                    icon:'pi pi-print',
+                    command:() => this.exportPrdTotal(),
+                  },
+                  {
+                    label:'ออกรายงานการรับเข้าวัสดุ',
+                    icon:'pi pi-print',
+                    command:() => this.exportPrdPin(),
+                  },
+                  {
+                    label:'ออกรายงานการเบิกออกวัสดุ',
+                    icon:'pi pi-print',
+                    command:() => this.picout(),
+                  },
+
+                ]
+              }
         ]
       },
       {
@@ -332,8 +341,13 @@ export class NavBarComponent implements OnInit {
     this.excelPicoutService.exportToExcel();
   }
   reportPo(){
-    
     this.ExcelPoService.exportAsExcelFilePo();
+  }
+  exportPrdTotal(){
+    this.TotalItemService.exportToExcelPrd();
+  }
+  exportPrdPin(){
+    this.PickInReportService.exportToExcelPrdPin();
   }
   navSlot(){
     this.router.navigate(['slot']);

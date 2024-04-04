@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component,OnInit } from '@angular/core';
-import { LoadMapService } from '../load-map.service';
+import { Component, OnInit } from '@angular/core';
+import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
+
 
 
 @Component({
@@ -13,19 +14,22 @@ export class DialogMapItemComponent implements OnInit{
   slotData: any[]=[];
   shelfData: any[]=[];
   materialData: any[] = [];
-  constructor(private http:HttpClient,private dataService: LoadMapService){
+  material_id:any;
+  constructor(private http:HttpClient, public config: DynamicDialogConfig, public ref: DynamicDialogRef){
   }
     ngOnInit(): void {
-      this.getData();
+      this.material_id = this.config.data.material_id;
+      this.load_data();
     }
-  
-    getData(): void {
-      this.dataService.getData().subscribe(data => {
-        this.rowData = data[0];
-        this.slotData = data[1];
-        this.shelfData = data[2];
-      });
+    
+    load_data(){
+      const url = 'http://localhost/backend/loadDataRow.php';
+      const data = {material_id:this.material_id};
+      this.http.post<any>(url,data).subscribe(res=>{
+        this.rowData = res;
+      })
     }
+
   }
 
 

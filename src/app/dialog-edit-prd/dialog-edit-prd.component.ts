@@ -29,7 +29,7 @@ export class DialogEditPrdComponent implements OnInit {
   selecStatus:string='';
   slot:any;
   selectedslot:string='';
-
+  selectedFile!:File;
   constructor(private http: HttpClient, public config: DynamicDialogConfig, public ref: DynamicDialogRef, private confirmationService: ConfirmationService, private messageService: MessageService, private router: Router) {
 
   }
@@ -70,29 +70,41 @@ export class DialogEditPrdComponent implements OnInit {
     const url = 'http://localhost/backend/edit_prd.php';
     const data = {
       edit_prd_name: this.edit_prd_name,
-      selectedUnit: this.selectedUnit,
-      selectedType: this.selectedType,
       material_id: this.material_id,
-      selecStatus:this.selecStatus,
-      selectedslot: this.selectedslot,
+      selecStatus: this.selecStatus,
+      selectedType: this.selectedType, // Assuming selectedType is an object
+      selectedUnit: this.selectedUnit, // Assuming selectedUnit is an object
+      selectedslot: this.selectedslot, // Assuming selectedslot is an object
     };
-    console.log(data);
-    this.http.post<any>(url, data).subscribe((res) => {
-      if (res && res.status === 'success') {
-        this.messageService.add({ severity: 'success', summary: 'สำเร็จ', detail: 'แก้ไขสำเร็จ', life: 3000 });
-        window.location.reload();
-      } else {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'แก้ไขไม่สำเร็จ', life: 3000 });
+    const formData = new FormData();
+    formData.append('data', JSON.stringify(data));
+    formData.append('file', this.selectedFile);
+  
+    this.http.post<any>(url, formData).subscribe(
+      (res) => {
+        if (res && res.status === 'success') {
+          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'แก้ไขข้อมูลเสร็จสิ้น' });
+          window.location.reload();
+          // Optionally update UI here instead of reloading the page
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'เกิดข้อผิดพลาดใยการแก้ไข' });
+        }
+      },
+      (error) => {
+        console.error('Error:', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'เกิดข้อผิดพลาดในการส่งข้อมูล' });
       }
-    }, (error) => {
-      console.log(error);
-      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'เกิดข้อผิดพลาดในการส่งข้อมูล', life: 3000 });
-    });
+    );
   }
+  
   load_slot(){
     this.http.get<any[]>('http://localhost/backend/load_slot.php').subscribe(response =>{
       this.slot = response;
     });
   }
+  onFileSelected(event: any) {
+    console.log(event.target.files[0]);
+    this.selectedFile = event.target.files[0];
+}
 }
 

@@ -12,26 +12,10 @@ export class ExcelPoService {
     const url = 'http://localhost/backend/export_excel_afb.php';
     this.http.get<any[]>(url).subscribe((res: any[]) => {
       const wb: XLSX.WorkBook = XLSX.utils.book_new();
-      const sheets: { [key: string]: any[] } = {};
-  
-      // แบ่งข้อมูลตาม material_class_shelf_id
-      res.forEach(item => {
-        const shelfId = item.material_class_shelf_id;
-        if (!sheets[shelfId]) {
-          sheets[shelfId] = [];
-        }
-        sheets[shelfId].push(item);
-      });
-  
-      // เขียนข้อมูลลงในแต่ละ WorkSheet
-      Object.keys(sheets).forEach((key, index) => {
-        const wsName = 'Sheet' + (index + 1);
-        const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(sheets[key]);
-        XLSX.utils.book_append_sheet(wb, ws, wsName);
-      });
-  
+      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(res);
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
       // บันทึกไฟล์ Excel
-      XLSX.writeFile(wb, 'materials.xlsx');
+      XLSX.writeFile(wb, 'รายงานใบสั่งซื้อ.xlsx');
     });
   }
 }

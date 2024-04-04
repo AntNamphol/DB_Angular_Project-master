@@ -72,9 +72,10 @@ export class UserReqItemComponent implements OnInit{
       name: item.material_name,
       quantity: item.quantity,
       unit_name: item.unit_name,
-      pic_path:item.pic_path
+      pic_path:item.pic_path,
+      material_value:Number(item.material_value)
     });
-    
+    console.log(item);
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'เพิ่มวัสดุลงตะกร้าแล้ว' });
   }
 

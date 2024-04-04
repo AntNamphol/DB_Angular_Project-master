@@ -36,7 +36,7 @@ export class EditPermisionUserComponent implements OnInit{
   }
   searchAfbIdChange(userFullname: string) {
     this.UserAll = this.userPic.filter(item => item.userFullname.includes(userFullname));
-    console.log(this.UserAll);
+
   }
   
   showDialog(){

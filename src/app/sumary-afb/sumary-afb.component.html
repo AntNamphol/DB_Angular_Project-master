@@ -1,48 +1,55 @@
 <app-nav-bar></app-nav-bar>
 <br>
-
 <div class="container">
-    <h3>รายการสรุปยอด</h3>
-    <table class="summary-table">
-        <tr>
-            <td colspan="2"><h4>รายปี</h4></td>
-        </tr>
-        <tr>
-            <td>
-                <div class="card">
-                    <p-chart type="bar" [data]="chartData"></p-chart>
-                </div>
-            </td>
-            <td>
-                <div class="card">
-                    <p-chart type="bar" [data]="sumThrid" [options]="SumToption"></p-chart>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2"><h4>รายเดือน</h4></td>
-        </tr>
-        <tr>
-            <td>
-                <div class="card">
-                    <p-chart type="bar" [data]="chartDataM"></p-chart>
-                </div>
-            </td>
-            <td>
-                <div class="card">
-                    <p-chart type="bar" [data]="chartDataW"></p-chart>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2"><h4>รายวัน</h4></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <div class="card">
-                    <p-chart type="bar" [data]="chartDataD"></p-chart>
-                </div>
-            </td>
-        </tr>
-    </table>
-</div>
+    <div class="card">
+      <div class="card-header">
+        <table>
+            <tr>
+                <td>
+                    <h3>รายการสรุปยอด</h3>
+                </td>
+                <td>
+                    <button pButton pRipple label="Export To Excel งบไตรมาส" class="p-button-success" icon="pi pi-sign-out" (click)="test()"></button>
+
+                </td>
+            </tr>
+        </table>
+       
+        
+      </div>
+      <div class="card-body">
+        <div class="form-group">
+            <p-table [value]="[{}]" responsiveLayout="stack" [breakpoint]="'960px'">
+                <ng-template pTemplate="header" let-colums>
+                  <tr>
+                    <th>รายปี</th>
+                    <th>รายไตรมมาส</th>
+                    <th>ราเดือน</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-row let-colums="colums">
+                  <tr>
+                        <td>
+                            <div class="card">
+                                <p-chart type="bar" [data]="chartData"></p-chart>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="card">
+                                <p-chart type="bar" [data]="sumThrid" [options]="SumToption"></p-chart>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="card">
+                                <p-chart type="bar" [data]="chartDataM"></p-chart>
+                            </div>
+                        </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            
+        </div>
+      </div>
+    </div>
+  </div>
+

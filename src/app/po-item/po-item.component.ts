@@ -32,7 +32,7 @@ export class PoItemComponent implements OnInit {
   stateId: string = '';
   userFullname: string = '';
   userDepartName: string = '';
-
+  userIdC:any;
   // ในคอมโพเนนต์ Angular ของคุณ
   companies: any[] = [];
   selectedCompany: Company | undefined;
@@ -42,6 +42,7 @@ export class PoItemComponent implements OnInit {
   ngOnInit(): void {
     this.load_afb();
     this.load_comp();
+    this.userIdC = sessionStorage.getItem('user_id');
   }
   exportToExcel(event: Event): void {
 
@@ -62,7 +63,8 @@ export class PoItemComponent implements OnInit {
           userId: this.userId,
           afbDate: this.afbDate,
           selectedCompany: this.selectedCompany,
-          items: this.items
+          items: this.items,
+          userIdC:this.userIdC
         };
 
         // Send the data to PHP server

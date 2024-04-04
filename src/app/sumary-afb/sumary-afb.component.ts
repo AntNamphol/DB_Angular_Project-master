@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-sumary-afb',
@@ -52,8 +52,6 @@ export class SumaryAfbComponent implements OnInit {
           });
           return quarterData ? quarterData.total_item_price_sum : 0;
         }),
-        backgroundColor: ['rgba(255, 159, 64, 0.2)', 'rgba(75, 192, 192, 0.2)', 'rgba(54, 162, 235, 0.2)'],
-        borderColor: ['rgb(255, 159, 64)', 'rgb(75, 192, 192)', 'rgb(54, 162, 235)'],
         borderWidth: 1
       };
       this.sumThrid = {
@@ -100,7 +98,7 @@ export class SumaryAfbComponent implements OnInit {
       labels: labels,
       datasets: [
         {
-          label: 'Total Item Price Sum',
+          label: 'งบที่ใช้',
           data: values,
           backgroundColor: 'rgba(255, 99, 132, 0.2)',
           borderColor: 'rgba(255, 99, 132, 1)',
@@ -127,7 +125,7 @@ export class SumaryAfbComponent implements OnInit {
       labels: labels,
       datasets: [
         {
-          label: 'Total Item Price Sum',
+          label: 'งบที่ใช้',
           data: values,
           backgroundColor: 'rgba(255, 99, 132, 0.2)',
           borderColor: 'rgba(255, 99, 132, 1)',
@@ -145,7 +143,7 @@ export class SumaryAfbComponent implements OnInit {
         labels: labels,
         datasets: [
           {
-            label: 'Total Item Price Sum',
+            label: 'งบที่ใช้',
             data: values,
             backgroundColor: 'rgba(255, 99, 132, 0.2)',
             borderColor: 'rgba(255, 99, 132, 1)',
@@ -162,7 +160,7 @@ export class SumaryAfbComponent implements OnInit {
       labels: labels,
       datasets: [
         {
-          label: 'Total Item Price Sum',
+          label: 'งบที่ใช้',
           data: values,
           backgroundColor: 'rgba(255, 99, 132, 0.2)',
           borderColor: 'rgba(255, 99, 132, 1)',
@@ -172,7 +170,33 @@ export class SumaryAfbComponent implements OnInit {
     };
   });
 }
+test(){
+  const url = 'http://localhost/backend/export_excel_afb.php';
+  this.http.get<any[]>(url).subscribe((res: any[]) => {
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    const sheets: { [key: string]: any[] } = {};
 
+    // แบ่งข้อมูลตาม material_class_shelf_id
+    res.forEach(item => {
+      const shelfId = item.ไตรมาสที่;
+      if (!sheets[shelfId]) {
+        sheets[shelfId] = [];
+      }
+      sheets[shelfId].push(item);
+    });
 
+    // เขียนข้อมูลลงในแต่ละ WorkSheet
+    Object.keys(sheets).forEach((key, index) => {
+      const wsName = 'ไตรมาสที่' + (index + 1);
+      const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(sheets[key]);
+      XLSX.utils.book_append_sheet(wb, ws, wsName);
+    });
+
+    // บันทึกไฟล์ Excel
+    XLSX.writeFile(wb, 'รายงานการสั่งซื้อวัสดุตามไตรมาส.xlsx');
+});
 }
+}
+
+
 

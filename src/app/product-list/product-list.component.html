@@ -68,7 +68,9 @@
                         <th>ชั้นวาง</th>
                         <th>ช่องวาง</th>
                         <th>สถานะ</th>
-                        <th *ngIf="userLv == 3">การกระทำ</th>
+                        <th *ngIf="userLv == 3">ลบ</th>
+                        <th *ngIf="userLv == 3">แก้ไข</th>
+                        <th *ngIf="userLv == 3">ดูทั้งตั้ง</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-colums="colums">
@@ -87,10 +89,15 @@
                             <ng-container *ngIf="rowData.state_id == 9">ไม่พร้อมใช้งาน</ng-container>
                             <ng-container *ngIf="rowData.state_id == 16">ชำรุด</ng-container>
                           </td>
-                        <td  *ngIf="userLv == 3">
-                            <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="editPrd(rowData.material_id)"></button> <!-- ปุ่มแก้ไข -->
-                            &nbsp;
+                          <td  *ngIf="userLv == 3">
+                            
                             <button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="confirm1($event,rowData.material_id)"></button> <!-- ปุ่มลบ -->
+                          </td>
+                          <td  *ngIf="userLv == 3">
+                            <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="editPrd(rowData.material_id)"></button> <!-- ปุ่มแก้ไข -->
+                          </td>
+                          <td *ngIf="userLv == 3">
+                            <button pButton icon="pi pi-eye" class="p-button-rounded p-button-info" (click)="openMap(rowData.material_id)"></button>
                           </td>
                     </tr>
                 </ng-template>
@@ -111,6 +118,7 @@
                         <th>สถานะ</th>
                         <th *ngIf="userLv == 3">ลบ</th>
                         <th *ngIf="userLv == 3">แก้ไข</th>
+                        <th *ngIf="userLv == 3">ดูทั้งตั้ง</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowData let-colums="colums">
@@ -135,6 +143,9 @@
                           </td>
                           <td  *ngIf="userLv == 3">
                             <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-warning" (click)="editPrd(rowData.material_id)"></button> <!-- ปุ่มแก้ไข -->
+                          </td>
+                          <td *ngIf="userLv == 3">
+                            <button pButton icon="pi pi-eye" class="p-button-rounded p-button-info" (click)="openMap(rowData.material_id)"></button>
                           </td>
                     </tr>
                 </ng-template>
