@@ -42,6 +42,9 @@ export class SlotItemComponent implements OnInit{
     this.confirmationService.confirm({
         header: 'ต้องการบันทึกหรือไม่?',
         message: 'โปรดตรวจสอบให้แน่ใจ',
+        acceptLabel:'ยืนยัน',
+        rejectLabel:'ยกเลิก',
+        rejectButtonStyleClass:'p-button-outlined',
         accept: () => {
             const url = 'http://localhost/backend/add_slot.php';
             const data = {
@@ -66,7 +69,7 @@ export class SlotItemComponent implements OnInit{
             );
         },
         reject: () => {
-            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+            this.messageService.add({ severity: 'error', summary: 'ยกเลิก', detail: 'ยกเลิกการกระทำ', life: 3000 });
         }
     });
 }
@@ -97,11 +100,10 @@ confirm1(event: Event,material_slot_id:number) {
   this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: 'ต้องการลบช่องวางของหรือไม่?',
-      header: 'Confirmation',
-      icon: 'pi pi-exclamation-triangle',
-      acceptIcon:"none",
-      rejectIcon:"none",
-      rejectButtonStyleClass:"p-button-text",
+      header: 'ทบทวนการกระทำ',
+      acceptLabel:'ยืนยัน',
+      rejectLabel:'ยกเลิก',
+      rejectButtonStyleClass:'p-button-outlined',
       accept: () => {
         const url = 'http://localhost/backend/del_slot.php';
         const data = { material_slot_id };
@@ -110,12 +112,12 @@ confirm1(event: Event,material_slot_id:number) {
             this.messageService.add({ severity: 'success', summary: 'สำเร็จ', detail: 'ลบช่องวางของสำเร็จ', life: 3000 });
             this.load_slot();
           } else {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'ช่องวางของนี้มีการใช้งานอยู่', life: 3000 });
+            this.messageService.add({ severity: 'error', summary: 'เกิดข้อผิดพลาด', detail: 'ช่องวางของนี้มีการใช้งานอยู่', life: 3000 });
           }
         });
       },
       reject: () => {
-        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'ยกเลิกการกระทำ', life: 3000 });
+        this.messageService.add({ severity: 'error', summary: 'ยกเลิก', detail: 'ยกเลิกการกระทำ', life: 3000 });
       }
   });
 }

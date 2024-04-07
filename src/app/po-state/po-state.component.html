@@ -3,12 +3,12 @@
 <app-nav-bar></app-nav-bar>
 <br>
 <div class="container">
-    <div class="card">
+    <div class="card" style="background-color: #8DB9FD;">
       <div class="card-header">
         <table>
             <tr>
                 <td>
-                    <h3>สถานะใบสั่งซื้อ</h3>
+                    <h3 style="color: white;">สถานะใบสั่งซื้อ</h3>
                 </td>
                 <td>
                     <div class="filter-container">
@@ -36,6 +36,8 @@
                             <th>ชื่อผู้สั่งซื้อ</th>
                             <th>รหัสผู้ใช้งาน</th>
                             <th>รายละเอียด</th>
+                            <th>PDF</th>
+                           
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-rowData let-colums="colums">
@@ -54,6 +56,8 @@
                             <td>{{ rowData.userFullname }}</td>
                             <td>{{ rowData.user_id }}</td>
                             <td><button pButton pRipple label="รายละเอียด" class="p-button-info" (click)="detailButtonClicked(rowData.po_from_id)"></button></td>
+                            <td><button pButton icon="pi pi-file-pdf" class="p-button-rounded p-button-danger" (click)="exportPdf(rowData.po_from_id)"></button></td>
+                            
                         </tr>
                     </ng-template>
                 </p-table>
@@ -68,6 +72,8 @@
                             <th>ชื่อผู้สั่งซื้อ</th>
                             <th>รหัสผู้ใช้งาน</th>
                             <th>รายละเอียด</th>
+                            <th>PDF</th>
+                           
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-rowData let-colums="colums">
@@ -87,6 +93,9 @@
                             <td>{{ rowData.userFullname }}</td>
                             <td>{{ rowData.user_id }}</td>
                             <td><button pButton pRipple label="รายละเอียด" class="p-button-info" (click)="detailButtonClicked(rowData.po_from_id)"></button></td>
+                            <td><button pButton icon="pi pi-file-pdf" class="p-button-rounded p-button-danger" (click)="exportPdf(rowData.po_from_id)"></button></td>
+                            
+                           
                         </tr>
                     </ng-template>
                 </p-table>

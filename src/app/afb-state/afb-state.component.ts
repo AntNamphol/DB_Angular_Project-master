@@ -18,12 +18,26 @@ export class AfbStateComponent implements OnInit{
   afborder: any[] = []; // ข้อมูลทั้งหมด
   afborderFiltered: any[] = []; // ข้อมูลที่ถูกกรอง
   showTable: boolean = false;
+<<<<<<< Updated upstream
 
+=======
+  userdepart_id:any;
+  searhUserafb:string='';
+  afborderUFiltered:any;
+  searhDate:string='';
+  afborderDFiltered:any;
+>>>>>>> Stashed changes
   constructor(private http:HttpClient,private dialogService: DialogService){}
   ngOnInit(): void {
     this.load_afb();
     this.userLv = sessionStorage.getItem('userlv_id');
     
+  }
+  searhDatee(afb_date:string){
+    this.afborderDFiltered = this.afborder.filter(item => item.afb_date.includes(afb_date));
+  }
+  searhUserafbC(userFullname:string){
+    this.afborderUFiltered = this.afborder.filter(item => item.userFullname.includes(userFullname));
   }
   load_afb(){
     this.http.get<any[]>('http://localhost/backend/load_afb.php')

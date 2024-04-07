@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
-import * as XLSX from 'xlsx';
 import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
 import { Router } from '@angular/router';
 
@@ -48,11 +47,10 @@ export class PoItemComponent implements OnInit {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: 'ต้องการบันทึกใบสั่งซื้อหรือไม่?',
-      header: 'Confirmation',
-      icon: 'pi pi-exclamation-triangle',
-      acceptIcon: "none",
-      rejectIcon: "none",
-      rejectButtonStyleClass: "p-button-text",
+      header: 'ทบทวนการกระทำ',
+      acceptLabel:'ยืนยัน',
+      rejectLabel:'ยกเลิก',
+      rejectButtonStyleClass:'p-button-outlined',
       accept: () => {
         const data = {
           whocon: this.whocon,
@@ -73,30 +71,6 @@ export class PoItemComponent implements OnInit {
             if (response.status == 'success') {
               console.log('สั่งซื้อเสร็จสิ้น');
               this.messageService.add({ severity: 'success', summary: 'บันทึก', detail: 'บันทึกเสร็จสิ้น' });
-              // Create a new worksheet
-              const worksheet: XLSX.WorkSheet = XLSX.utils.book_new();
-
-              // Add company details to the worksheet header
-              XLSX.utils.sheet_add_aoa(worksheet, [
-                ['บริษัท ไม่ได้นอน จำกัด'],
-                [], // Add an empty row for spacing
-                ['ใบขอซื้อเลขที่:', this.afbId],
-                ['ผู้ขอซื้อ:', this.userFullname],
-                ['ฝ่าย:', this.userDepartName],
-                ['รหัสผู้ใช้:', this.userId],
-                ['ขอซื้อวันที่:', this.afbDate],
-                [''],
-                ['Material ID', 'Material Name', 'Quantity', 'Unit Price', 'Total Price']
-              ], { origin: 'A1' });
-
-              // Add purchase items to the worksheet
-              XLSX.utils.sheet_add_json(worksheet, this.items, { origin: 'A10' });
-
-              // Save the workbook
-              const workbook: XLSX.WorkBook = { Sheets: { 'data': worksheet }, SheetNames: ['data'] };
-              const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-
-              this.saveAsExcelFile(excelBuffer, 'export');
               this.router.navigate(['postate']);
             } else {
               console.log('เกิดข้อผิดพลาด');
@@ -110,28 +84,11 @@ export class PoItemComponent implements OnInit {
        
       },
       reject: () => {
-        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+        this.messageService.add({ severity: 'error', summary: 'ยกเลิก', detail: 'ยกเลิกการกระทำ', life: 3000 });
       }
     });
   }
-
-  private saveAsExcelFile(buffer: any, fileName: string): void {
-    const data: Blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8' });
-    const url: string = window.URL.createObjectURL(data);
-    const link: HTMLAnchorElement = document.createElement('a');
-    link.href = url;
-    link.setAttribute('download', `${fileName}.xlsx`);
-
-    if ('msSaveBlob' in navigator) { // For IE 10+
-      (navigator as any).msSaveBlob(data, `${fileName}.xlsx`);
-    } else {
-      // For other browsers
-      link.click();
-    }
-  }
-
-
-
+  
   showDialog() {
     this.visible = true;
   }

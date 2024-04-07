@@ -58,12 +58,12 @@ export class DialogAfbComponent implements OnInit {
   confirm1(event: Event) {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: 'คุณต้องการอนุมัติใช่ไหม??',
-      header: 'อนุมัติ',
+      message: 'คุณต้องการอนุมัติใช่หรือไม่',
+      header: 'ทบทวนการกระทำ',
       icon: 'pi pi-exclamation-triangle',
-      acceptIcon: "none",
-      rejectIcon: "none",
-      rejectButtonStyleClass: "p-button-text",
+      acceptLabel:'ยืนยัน',
+      rejectLabel:'ยกเลิก',
+      rejectButtonStyleClass:'p-button-outlined',
       accept: () => {
         this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'ใบขอซื้อได้รับการอนุมัติแล้ว' });
         const url = 'http://localhost/backend/accpafb.php';
@@ -86,7 +86,7 @@ export class DialogAfbComponent implements OnInit {
         );
       },
       reject: () => {
-        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'ยกเลิกการกระทำ', life: 3000 });
+        this.messageService.add({ severity: 'error', summary: 'ยกเลิก', detail: 'ยกเลิกการกระทำ', life: 3000 });
       }
     });
   }
@@ -97,13 +97,12 @@ export class DialogAfbComponent implements OnInit {
       message: 'ต้องการยกเลิกใบขอซื้อหรือไม่?',
       header: 'ยกเลิก',
       icon: 'pi pi-info-circle',
-      acceptButtonStyleClass: "p-button-danger p-button-text",
-      rejectButtonStyleClass: "p-button-text p-button-text",
-      acceptIcon: "none",
-      rejectIcon: "none",
+      acceptLabel:'ยืนยัน',
+      rejectLabel:'ยกเลิก',
+      rejectButtonStyleClass:'p-button-outlined',
 
       accept: () => {
-        this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'ยกเลิกใบขอซื้อแล้ว' });
+        this.messageService.add({ severity: 'info', summary: 'สำเร็จ', detail: 'ยกเลิกใบขอซื้อแล้ว' });
 
         const url = 'http://localhost/backend/cantafb.php';
         const headers = { 'Content-Type': 'application/json' };
@@ -126,7 +125,7 @@ export class DialogAfbComponent implements OnInit {
 
       },
       reject: () => {
-        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'ยกเลิกการกระทำ' });
+        this.messageService.add({ severity: 'error', summary: 'ยกเลิก', detail: 'ยกเลิกการกระทำ' });
       }
     });
   }

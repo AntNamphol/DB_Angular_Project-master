@@ -2,6 +2,6 @@
 <div *ngFor="let cann of chan"><p-toast></p-toast>
     <input type="text" pInputText [(ngModel)]="edit_nuynab" placeholder="{{cann.material_type_name}}"/>
     &nbsp;
-    <button pButton pRipple label="Submit" class="p-button-success" (click)="save_eiei($event)"></button>
+    <button pButton pRipple label="บันทึก" class="p-button-success" (click)="save_eiei($event)"></button>
     </div>
     <p-confirmDialog></p-confirmDialog>

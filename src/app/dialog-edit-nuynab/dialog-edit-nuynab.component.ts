@@ -35,9 +35,9 @@ export class DialogEditNuynabComponent {
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       header: 'ต้องการแก้ไขชั้นวางหรือไม่',
-      acceptIcon:"none",
-      rejectIcon:"none",
-      rejectButtonStyleClass:"p-button-text",
+      acceptLabel:'ยืนยัน',
+      rejectLabel:'ยกเลิก',
+      rejectButtonStyleClass:'p-button-outlined',
       accept: () => {
         const url = 'http://localhost/backend/edit_nuy.php';
     const data = {edit_nuynab:this.edit_nuynab,unit_id:this.unit_id};
@@ -47,12 +47,12 @@ export class DialogEditNuynabComponent {
             window.location.reload();
             
           } else {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'แก้ไขไม่สำเร็จ', life: 3000 });
+            this.messageService.add({ severity: 'error', summary: 'เกิดข้อผิดพลาด', detail: 'แก้ไขไม่สำเร็จ', life: 3000 });
           }
         });
       },
       reject: () => {
-        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'ยกเลิกการกระทำ', life: 3000 });
+        this.messageService.add({ severity: 'error', summary: 'ยกเลิก', detail: 'ยกเลิกการกระทำ', life: 3000 });
       }
   });
   }

@@ -62,22 +62,22 @@ export class DialogPickinComponent implements OnInit{
       this.confirmationService.confirm({
         target: event.target as EventTarget,
         header: 'ยืนยันจำนวนรับเข้าใช่หรือไม่?',
-        acceptIcon:"none",
-        rejectIcon:"none",
-        rejectButtonStyleClass:"p-button-text",
+        acceptLabel:'ยืนยัน',
+        rejectLabel:'ยกเลิก',
+        rejectButtonStyleClass:'p-button-outlined',
         accept: () => {
           console.log(po);
           console.log(data);
           this.http.post<any>(url,data).subscribe(res=>{
             console.log(res);
             this.load_item_po_pick_by_id();
-            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
+            this.messageService.add({ severity: 'info', summary: 'สำเร็จ', detail: 'รับเข้าวัสดุเสร็จสิ้น' });
             window.location.reload();
           });
             
         },
         reject: () => {
-            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+            this.messageService.add({ severity: 'error', summary: 'ยกเลิก', detail: 'ยกเลิกการกระทำ', life: 3000 });
         }
     });
       

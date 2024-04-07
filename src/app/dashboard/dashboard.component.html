@@ -29,7 +29,7 @@
             <h2 style="color: green;">{{ afbb.value }} รายการ</h2>
         </div>
     </p-fieldset>
-    <p-fieldset legend="รายการวัสดุคงเหลือน้อย" [style]="{width:'350px',height:'550px',overflow:'scroll'}" class="kuy" >
+    <p-fieldset legend="รายการวัสดุคงคลังน้อย" [style]="{width:'350px',height:'550px',overflow:'scroll'}" class="kuy" >
         <p-table [value]="prdNoy" [responsiveLayout]="'scroll'">
             <ng-template pTemplate="header">
                 <tr>
@@ -40,20 +40,30 @@
                 <tr>
                     <td>{{i+1}}</td>
                     <td>{{ afbb.material_name }}</td>
-                    <td>{{ afbb.material_value }}</td>
+                    <td style="color: red;">{{ afbb.material_value }}</td>
                 </tr>
             </ng-template>
         </p-table>
-        
+    </p-fieldset>
+    <p-fieldset legend="รายการวัสดุคงคลังมาก" [style]="{width:'350px',height:'550px',overflow:'scroll'}" class="kuy" >
+        <p-table [value]="prdMak" [responsiveLayout]="'scroll'">
+            <ng-template pTemplate="header">
+                <tr>
+                  
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-afbb let-i="rowIndex">
+                <tr>
+                    <td>{{i+1}}</td>
+                    <td>{{ afbb.material_name }}</td>
+                    <td style="color: red;">{{ afbb.material_value }}</td>
+                </tr>
+            </ng-template>
+        </p-table>
     </p-fieldset>
     <p-fieldset legend="รายการสั่งซื้อที่รอรับเข้า" [style]="{width:'350px'}" class="kuy">
         <div *ngFor="let afbb of lorRub | keyvalue">
             <h2 style="color: green;">{{ afbb.value }} รายการ</h2>
-        </div>
-    </p-fieldset>
-    <p-fieldset legend="ใบสั่งซื้อตรวจรับแล้ว" [style]="{width:'350px'}" class="kuy">
-        <div *ngFor="let afbb of poC | keyvalue">
-            <h2 style="color: green;">{{ afbb.value }} ใบ</h2>
         </div>
     </p-fieldset>
     

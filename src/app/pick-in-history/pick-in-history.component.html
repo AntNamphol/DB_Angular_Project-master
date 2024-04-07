@@ -34,28 +34,28 @@
                 <ng-template pTemplate="body" let-pc let-colums="colums">
                   <tr>
                       <td>
-                        รหัสรับเข้าวัสดุ:
+                     
                         {{pc.pick_in_id}}
                       </td>
                       <td>
-                        วันที่รับเข้า:
+             
                         {{pc.pick_in_date}}
                       </td>
                       
-                      <td>ผู้รับเข้า:{{pc.userPic}}</td>
+                      <td>{{pc.userPic}}</td>
                       <td>
-                        เลขใบสั่งซื้อ:
+                      
                         {{pc.po_from_id}}
                       </td>
                       <td>
-                        รหัสวัสดุ:{{pc.material_id}}</td>
+                       {{pc.material_id}}</td>
                         <td><p-image src="http://localhost/backend/{{pc.pic_path}}" alt="Image" width="100" [preview]="true"></p-image></td>
-                      <td>ชื่อวัสดุ:{{pc.material_name}}</td>
+                      <td>{{pc.material_name}}</td>
                       <td>
-                        จำนวนรับเข้า: {{pc.pick_in_values}}
+                        {{pc.pick_in_values}}
                       </td>
                       <td>
-                        หน่วยนับ: {{pc.unit_name}}
+                      {{pc.unit_name}}
                       </td>
                   </tr>
                 </ng-template>

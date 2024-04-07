@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { GetApiService } from '../get-api.service';
+
 
 @Component({
   selector: 'app-login',
@@ -17,6 +19,7 @@ export class LoginComponent {
     private http: HttpClient,
     private router: Router,
     private authService: AuthService
+    ,private GetApiService:GetApiService
   ) { }
 
   login(): void {
@@ -43,6 +46,22 @@ export class LoginComponent {
         } else {
           console.log('Please log in first.');
         }
+<<<<<<< Updated upstream
+=======
+        if(response.userlv_id == 5){
+           this.router.navigate(['/edu']);
+        }if(response.userlv_id == 1){
+          this.router.navigate(['/afbstate']);
+        }
+        if(response.userlv_id == 2){
+          this.router.navigate(['/allitem']);
+        }
+      },
+      (error) => {
+        // Handle login error
+        console.log(error);
+        alert('ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง');
+>>>>>>> Stashed changes
       }
     );
   }

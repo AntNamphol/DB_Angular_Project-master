@@ -15,12 +15,14 @@ import { ExcelPoService } from '../excel-po.service';
   providers: [ConfirmationService]
 })
 export class NavBarComponent implements OnInit {
+[x: string]: any;
   username: string | null = null;
   userFname: string | null = null;
   userLname: string | null = null;
   userId: string | null = null;
   sidebarVisible: boolean = false;
   items: MenuItem[] | undefined;
+  activeItem: MenuItem | undefined;
   userlv_id: any;
 
   constructor(private router: Router, private confirmationService: ConfirmationService,private excelService: ExcelService,private excelPicoutService:ExcelPicoutService,private ExcelPoService:ExcelPoService) { }
@@ -32,6 +34,7 @@ export class NavBarComponent implements OnInit {
     this.userId = sessionStorage.getItem('user_id');
     this.userlv_id = sessionStorage.getItem('userlv_id');
     this.items = [
+
       {
         label: 'Dashboard',
         icon: 'pi pi-chart-bar',
@@ -91,7 +94,7 @@ export class NavBarComponent implements OnInit {
 
               },
               {
-                label: 'สภานะใบขอซื้อ',
+                label: 'สถานะใบขอซื้อ',
                 icon: 'pi pi-fw pi-check',
                 command: () => this.navstateafb(),
               },
@@ -115,7 +118,7 @@ export class NavBarComponent implements OnInit {
                 command: () => this.navAddpo(),
               },
               {
-                label: 'สภานะใบสั่งซื้อ',
+                label: 'สถานะใบสั่งซื้อ',
                 icon: 'pi pi-fw pi-check',
                 command: () => this.navPostate(),
               },
@@ -258,14 +261,13 @@ export class NavBarComponent implements OnInit {
         ]
       },
       {
-        label: 'Logout',
+        label: 'ออกจากระบบ',
         icon: 'pi pi-fw pi-power-off',
         command: () => this.logout(),
-      },{
-        label: `ชื่อผู้ใช้ : ${this.userFname} ${this.userLname} `,
       }
         
     ];
+    this.activeItem = this.items[0];
   }
   navstateafb() {
     this.router.navigate(['afbstate']);
@@ -348,5 +350,7 @@ export class NavBarComponent implements OnInit {
     sessionStorage.removeItem('user_lname');
     sessionStorage.removeItem('user_id');
     this.router.navigate(['login']);
+    
   }
+  
 }

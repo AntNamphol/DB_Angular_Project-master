@@ -33,6 +33,9 @@ export class ChanwangComponent implements OnInit{
     this.confirmationService.confirm({
         header: 'ต้องการบันทึกหรือไม่?',
         message: 'โปรดตรวจสอบให้แน่ใจ',
+        acceptLabel:'ยืนยัน',
+        rejectLabel:'ยกเลิก',
+        rejectButtonStyleClass:'p-button-outlined',
         accept: () => {
             const url = 'http://localhost/backend/add_chanwang.php';
             const data = {chanWangNew:this.chanWangNew};
@@ -54,7 +57,7 @@ export class ChanwangComponent implements OnInit{
             );
         },
         reject: () => {
-            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+            this.messageService.add({ severity: 'error', summary: 'ยกเลิก', detail: 'ยกเลิกการเพิ่มชั้นวางวัสดุ', life: 3000 });
         }
     });
 }
@@ -80,11 +83,12 @@ confirm1(event: Event,material_class_shelf_id:number) {
   this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: 'ต้องการลบชั้นวางหรือไม่?',
-      header: 'Confirmation',
+      header: 'ทบทวนการกระทำ',
       icon: 'pi pi-exclamation-triangle',
       acceptIcon:"none",
-      rejectIcon:"none",
-      rejectButtonStyleClass:"p-button-text",
+      acceptLabel:'ยืนยัน',
+      rejectLabel:'ยกเลิก',
+      rejectButtonStyleClass:'p-button-outlined',
       accept: () => {
         const url = 'http://localhost/backend/del_chanwang.php';
         const data = { material_class_shelf_id };
@@ -93,12 +97,12 @@ confirm1(event: Event,material_class_shelf_id:number) {
             this.messageService.add({ severity: 'success', summary: 'สำเร็จ', detail: 'ลบชั้นวางสำเร็จ', life: 3000 });
             this.load_chanwang();
           } else {
-            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'ชั้นวางนี้มีการใช้งานอยู่', life: 3000 });
+            this.messageService.add({ severity: 'error', summary: 'เกิดข้อผิดพลาด', detail: 'ชั้นวางนี้มีการใช้งานอยู่', life: 3000 });
           }
         });
       },
       reject: () => {
-        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'ยกเลิกการกระทำ', life: 3000 });
+        this.messageService.add({ severity: 'error', summary: 'ยกเลิก', detail: 'ยกเลิกการกระทำ', life: 3000 });
       }
   });
 }

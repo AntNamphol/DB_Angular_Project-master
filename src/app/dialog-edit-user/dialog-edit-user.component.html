@@ -17,14 +17,6 @@
             <input id="lastname" type="text" pInputText [(ngModel)]="edit_user_Lname" placeholder="{{user.user_lname}}" />
         </div>
         <div class="p-field">
-            <label for="agr">อายุ</label>
-            <input id="agr" type="text" pInputText [(ngModel)]="edit_user_Age" placeholder="{{user.user_age}}" />
-        </div>
-        <div class="p-field">
-            <label for="nump">เบอร์โทร</label>
-            <input id="nump" type="text" pInputText [(ngModel)]="edit_user_Nump" placeholder="{{user.user_numphone}}" />
-        </div>
-        <div class="p-field">
             <label for="materialShelf">ระดับผู้ใช้:</label>
             <p-dropdown id="materialShelf" [options]="lv" [(ngModel)]="selectLv" optionLabel="userlv_name" placeholder="{{user.userlv_name}}"></p-dropdown>
         </div>

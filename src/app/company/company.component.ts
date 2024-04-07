@@ -94,11 +94,11 @@ export class CompanyComponent implements OnInit{
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: 'ต้องการลบผู้จัดหาหรือไม่?',
-      header: 'Confirmation',
+      header: 'ทบทวนการกระทำ',
       icon: 'pi pi-exclamation-triangle',
-      acceptIcon:"none",
-      rejectIcon:"none",
-      rejectButtonStyleClass:"p-button-text",
+      acceptLabel:'ยืนยัน',
+      rejectLabel:'ยกเลิก',
+      rejectButtonStyleClass:'p-button-outlined',
       accept: () => {
         const url = `http://localhost/backend/delete_company.php`;
         const data = { company_id };
@@ -112,7 +112,7 @@ export class CompanyComponent implements OnInit{
         );
       },
       reject: () => {
-        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'ยกเลิกการกระทำ', life: 3000 });
+        this.messageService.add({ severity: 'error', summary: 'ยกเลิก', detail: 'ยกเลิกการกระทำ', life: 3000 });
       }
   });
   }

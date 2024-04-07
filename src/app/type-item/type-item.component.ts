@@ -34,6 +34,9 @@ export class TypeItemComponent implements OnInit {
     this.confirmationService.confirm({
         header: 'ต้องการบันทึกหรือไม่?',
         message: 'โปรดตรวจสอบให้แน่ใจ',
+        acceptLabel:'ยืนยัน',
+        rejectLabel:'ยกเลิก',
+        rejectButtonStyleClass:'p-button-outlined',
         accept: () => {
             const url = 'http://localhost/backend/add_type.php';
             const data = {typeNew:this.typeNew};
@@ -55,7 +58,7 @@ export class TypeItemComponent implements OnInit {
             );
         },
         reject: () => {
-            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+            this.messageService.add({ severity: 'error', summary: 'ยกเลิก', detail: 'ยกเลิกการกระทำ', life: 3000 });
         }
     });
 }
@@ -80,10 +83,9 @@ confirm1(event: Event,material_type_id:number) {
   this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: 'ต้องการลบประเภทวัสดุหรือไม่?',
-      header: 'Confirmation',
-      icon: 'pi pi-exclamation-triangle',
-      acceptIcon:"none",
-      rejectIcon:"none",
+      header: 'ทบทวนการกระทำ',
+      acceptLabel:'ยืนยัน',
+      rejectLabel:'ยกเลิก',
       rejectButtonStyleClass:"p-button-text",
       accept: () => {
         const url = 'http://localhost/backend/del_type.php';

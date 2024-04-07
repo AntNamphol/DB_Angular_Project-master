@@ -46,10 +46,12 @@ export class PopUpEditCompComponent implements OnInit{
 
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: 'Are you sure you want to proceed?',
-      icon: 'pi pi-exclamation-triangle',
+      message: 'ต้องการแก้ไขข้อมูลผู้จัดหาหรือไม่',
+      acceptLabel:'ยืนยัน',
+      rejectLabel:'ยกเลิก',
+      rejectButtonStyleClass:'p-button-outlined',
       accept: () => {
-        this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'บันทึกเสร็จสิ้น', life: 3000 });
+        this.messageService.add({ severity: 'success', summary: 'สำเร็จ', detail: 'บันทึกเสร็จสิ้น', life: 3000 });
         const data = {
           company_id:this.company_id,
           name_comp:this.name_comp,
@@ -75,7 +77,7 @@ export class PopUpEditCompComponent implements OnInit{
           
       },
       reject: () => {
-          this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+          this.messageService.add({ severity: 'error', summary: 'ยกเลิก', detail: 'ยกเลิกการกระทำ', life: 3000 });
       }
   });
 

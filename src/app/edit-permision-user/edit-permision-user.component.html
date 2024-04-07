@@ -40,18 +40,7 @@
                           <div>
                               <input type="text" pInputText [(ngModel)]="userLname" placeholder="นามสกุล" [style]="{ width: '100%'}" id="userLname" name="userLname"/>
                           </div>
-                          <div>
-                              อายุ
-                          </div>
-                          <div>
-                              <input type="number" pInputText [(ngModel)]="age" placeholder="อายุ" [style]="{ width: '100%'}" id="age" name="age"/>
-                          </div>
-                          <div>
-                              เบอร์โทร
-                          </div>
-                          <div>
-                              <input type="number" pInputText [(ngModel)]="nump" placeholder="เบอร์โทร" [style]="{ width: '100%'}" id="nump" name="nump"/>
-                          </div>
+                         
                           <div>
                               <label for="depart">ฝ่าย</label>
                           </div>
@@ -81,8 +70,6 @@
                 <th>Username</th>
                 <th>UserPassword</th>
                 <th>User Fullname</th>
-                <th>User Age</th>
-                <th>User Numphone</th>
                 <th>USer Lv</th>
                 <th>ลบ</th>
                 <th>แก้ไข</th>
@@ -94,8 +81,6 @@
                     <td>{{user.user_name}}</td>
                     <td>{{user.user_password}}</td>
                     <td>{{user.userFullname}}</td>
-                    <td>{{user.user_age}}</td>
-                    <td>{{user.user_numphone}}</td>
                     <td>{{user.userlv_name}}</td>
                     <td><button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="delUser($event,user.user_id)"></button></td>
                     <td><button pButton icon="pi pi-user-edit" class="p-button-rounded p-button-warning" (click)="editUser(user.user_id)"></button></td>
@@ -109,8 +94,6 @@
                     <th>Username</th>
                     <th>UserPassword</th>
                     <th>User Fullname</th>
-                    <th>User Age</th>
-                    <th>User Numphone</th>
                     <th>USer Lv</th>
                     <th>ลบ</th>
                     <th>แก้ไข</th>
@@ -122,8 +105,6 @@
                         <td>{{user.user_name}}</td>
                         <td>{{user.user_password}}</td>
                         <td>{{user.userFullname}}</td>
-                        <td>{{user.user_age}}</td>
-                        <td>{{user.user_numphone}}</td>
                         <td>{{user.userlv_name}}</td>
                         <td><button pButton icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="delUser($event,user.user_id)"></button></td>
                         <td><button pButton icon="pi pi-user-edit" class="p-button-rounded p-button-warning" (click)="editUser(user.user_id)"></button></td>

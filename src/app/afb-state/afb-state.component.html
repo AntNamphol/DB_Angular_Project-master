@@ -1,9 +1,8 @@
 
   <app-nav-bar></app-nav-bar>
 <br>
-<div class="container">
-    <div class="card">
-      <div class="card-header">
+
+
         <table>
             <tr>
                 <td>
@@ -13,15 +12,118 @@
                   <span class="p-input-icon-left">
                   <input type="text" pInputText placeholder="ค้นหาเลขใบขอซื้อ" [(ngModel)]="searchAfbId" (ngModelChange)="searchAfbIdChange($event)" />
                 </span></td>
-          
+                <td>
+                  <span class="p-input-icon-left">
+                  <input type="text" pInputText placeholder="ค้นหาผู้ขอซื้อ" [(ngModel)]="searhUserafb" (ngModelChange)="searhUserafbC($event)" />
+                </span></td>
+                <td>
+                  <input  type="date" pInputText [(ngModel)]="searhDate" placeholder="ค้นหาจากวันที่" (ngModelChange)="searhDatee($event)">
+                </td>
             </tr>
         </table>
+<<<<<<< Updated upstream
        
         
       </div>
       <div class="card-body">
+=======
+        
+        <div class="card-body"  *ngIf="searhDate">
+          <div class="form-group">
+            <h3>รายการที่ค้นหา</h3>
+              <p-table [value]="afborderDFiltered" class="pTable" responsiveLayout="stack" [breakpoint]="'960px'">
+                  <ng-template pTemplate="header" let-columns>
+                    <tr>
+                      <th>เลขที่ใบขอซื้อ</th>
+                      <th>ผู้ขอซื้อ</th>
+                      <th>ฝ่าย</th>
+                      <th>หมายเหตุ</th>
+                      <th>วันที่</th>
+                      <th>สถานะ</th>
+                      <th>การจัดการ</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-afbItem let-columns="columns">
+                    <tr *ngIf="afbItem.userdepart_id === userdepart_id">
+                      <td>{{ afbItem.afbId }}</td>
+                      <td>{{ afbItem.userFullname }}</td>
+                      <td>{{ afbItem.userdepart_name}}</td>
+                      <td>{{ afbItem.afb_comment }}</td>
+                      <td>{{ afbItem.afb_date }}</td>
+                      <td [ngClass]="{'text-warning': afbItem.state_id == 1 || afbItem.state_id == 5 || afbItem.state_id == 11, 'text-success': afbItem.state_id == 2 || afbItem.state_id == 10,'text-danger': afbItem.state_id == 3}">
+   
+                        <ng-container *ngIf="afbItem.state_id == 1">รออนุมัติ/จากหัวหน้าฝ่าย</ng-container>
+                        <ng-container *ngIf="afbItem.state_id == 2">อนุมัติจากหัวหน้าฝ่ายแล้ว</ng-container>
+                        <ng-container *ngIf="afbItem.state_id == 3">ใบขอซื้อถูกยกเลิก</ng-container>
+                        <ng-container *ngIf="afbItem.state_id == 5">สั่งซื้อแล้ว / รอตรวจรับ</ng-container>
+                        <ng-container *ngIf="afbItem.state_id == 10">ตรวจรับแล้ว / ครบถ้วน</ng-container>
+                        <ng-container *ngIf="afbItem.state_id == 11">ตรวจรับแล้ว / ยังไม่ครบถ้วน</ng-container>
+                      </td>
+                        
+                        <td>
+                          <button *ngIf="afbItem.state_id == 1 && userLv == 1" pButton pRipple label="ตรวจสอบเพื่ออนุมัติ" class="p-button-success" (click)="approveButtonClicked(afbItem.afbId)"></button>
+                          <button *ngIf="afbItem.state_id == 1 && userLv != 1" pButton pRipple label="รายละเอียด" class="p-button-info" (click)="approveButtonClicked(afbItem.afbId)"></button>
+                          <button *ngIf="afbItem.state_id == 2" pButton pRipple label="รายละเอียด" class="p-button-info" (click)="detailButtonClicked(afbItem.afbId)"></button>
+                          <button *ngIf="afbItem.state_id == 3" pButton pRipple label="รายละเอียด" class="p-button-info" (click)="detailButtonClicked(afbItem.afbId)"></button>
+                          <button *ngIf="afbItem.state_id == 5" pButton pRipple label="รายละเอียด" class="p-button-info" (click)="detailButtonClicked(afbItem.afbId)"></button>
+                        </td>
+                        
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            </div>
+
+        <div class="card-body"  *ngIf="searhUserafb">
+          <div class="form-group">
+            <h3>รายการที่ค้นหา</h3>
+              <p-table [value]="afborderUFiltered" class="pTable" responsiveLayout="stack" [breakpoint]="'960px'">
+                  <ng-template pTemplate="header" let-columns>
+                    <tr>
+                      <th>เลขที่ใบขอซื้อ</th>
+                      <th>ผู้ขอซื้อ</th>
+                      <th>ฝ่าย</th>
+                      <th>หมายเหตุ</th>
+                      <th>วันที่</th>
+                      <th>สถานะ</th>
+                      <th>การจัดการ</th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-afbItem let-columns="columns">
+                    <tr *ngIf="afbItem.userdepart_id === userdepart_id">
+                      <td>{{ afbItem.afbId }}</td>
+                      <td>{{ afbItem.userFullname }}</td>
+                      <td>{{ afbItem.userdepart_name}}</td>
+                      <td>{{ afbItem.afb_comment }}</td>
+                      <td>{{ afbItem.afb_date }}</td>
+                      <td [ngClass]="{'text-warning': afbItem.state_id == 1 || afbItem.state_id == 5 || afbItem.state_id == 11, 'text-success': afbItem.state_id == 2 || afbItem.state_id == 10,'text-danger': afbItem.state_id == 3}">
+                        
+                        <ng-container *ngIf="afbItem.state_id == 1">รออนุมัติ/จากหัวหน้าฝ่าย</ng-container>
+                        <ng-container *ngIf="afbItem.state_id == 2">อนุมัติจากหัวหน้าฝ่ายแล้ว</ng-container>
+                        <ng-container *ngIf="afbItem.state_id == 3">ใบขอซื้อถูกยกเลิก</ng-container>
+                        <ng-container *ngIf="afbItem.state_id == 5">สั่งซื้อแล้ว / รอตรวจรับ</ng-container>
+                        <ng-container *ngIf="afbItem.state_id == 10">ตรวจรับแล้ว / ครบถ้วน</ng-container>
+                        <ng-container *ngIf="afbItem.state_id == 11">ตรวจรับแล้ว / ยังไม่ครบถ้วน</ng-container>
+                      </td>
+                        
+                        <td>
+                          <button *ngIf="afbItem.state_id == 1 && userLv == 1" pButton pRipple label="ตรวจสอบเพื่ออนุมัติ" class="p-button-success" (click)="approveButtonClicked(afbItem.afbId)"></button>
+                          <button *ngIf="afbItem.state_id == 1 && userLv != 1" pButton pRipple label="รายละเอียด" class="p-button-info" (click)="approveButtonClicked(afbItem.afbId)"></button>
+                          <button *ngIf="afbItem.state_id == 2" pButton pRipple label="รายละเอียด" class="p-button-info" (click)="detailButtonClicked(afbItem.afbId)"></button>
+                          <button *ngIf="afbItem.state_id == 3" pButton pRipple label="รายละเอียด" class="p-button-info" (click)="detailButtonClicked(afbItem.afbId)"></button>
+                          <button *ngIf="afbItem.state_id == 5" pButton pRipple label="รายละเอียด" class="p-button-info" (click)="detailButtonClicked(afbItem.afbId)"></button>
+                        </td>
+                        
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            </div>
+
+      <div class="card-body"  *ngIf="searchAfbId">
+>>>>>>> Stashed changes
         <div class="form-group">
-          <div *ngIf="searchAfbId">
+          <h3>รายการที่ค้นหา</h3>
             <p-table [value]="afborderFiltered" class="pTable" responsiveLayout="stack" [breakpoint]="'960px'">
                 <ng-template pTemplate="header" let-columns>
                   <tr>
@@ -35,14 +137,23 @@
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-afbItem let-columns="columns">
+<<<<<<< Updated upstream
                   <tr>
                     <td>เลขที่ใบขอซื้อ:{{ afbItem.afbId }}</td>
                     <td>ผู้ขอซื้อ:{{ afbItem.userFullname }}</td>
                     <td>ฝ่าย:{{ afbItem.userdepart_name}}</td>
                     <td>หมายเหตุ:{{ afbItem.afb_comment }}</td>
                     <td>วันที่:{{ afbItem.afb_date }}</td>
+=======
+                  <tr *ngIf="afbItem.userdepart_id === userdepart_id">
+                    <td>{{ afbItem.afbId }}</td>
+                    <td>{{ afbItem.userFullname }}</td>
+                    <td>{{ afbItem.userdepart_name}}</td>
+                    <td>{{ afbItem.afb_comment }}</td>
+                    <td>{{ afbItem.afb_date }}</td>
+>>>>>>> Stashed changes
                     <td [ngClass]="{'text-warning': afbItem.state_id == 1 || afbItem.state_id == 5 || afbItem.state_id == 11, 'text-success': afbItem.state_id == 2 || afbItem.state_id == 10,'text-danger': afbItem.state_id == 3}">
-                      สถานะ:
+                
                       <ng-container *ngIf="afbItem.state_id == 1">รออนุมัติ/จากหัวหน้าฝ่าย</ng-container>
                       <ng-container *ngIf="afbItem.state_id == 2">อนุมัติจากหัวหน้าฝ่ายแล้ว</ng-container>
                       <ng-container *ngIf="afbItem.state_id == 3">ใบขอซื้อถูกยกเลิก</ng-container>
@@ -63,7 +174,13 @@
                 </ng-template>
               </p-table>
             </div>
-            
+          </div>
+   <br>
+            <div class="card-body">
+              <div class="form-group">
+                <h3  *ngIf="searchAfbId">รายการทั้งหมด</h3>
+                <h3  *ngIf="searhUserafb">รายการทั้งหมด</h3>
+                <h3  *ngIf="searhDate">รายการทั้งหมด</h3>
             <p-table [value]="afborder" responsiveLayout="stack" [breakpoint]="'960px'">
                 <ng-template pTemplate="header" let-columns>
                   <tr>
@@ -77,14 +194,23 @@
                   </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-afbItem let-columns="columns">
+<<<<<<< Updated upstream
                   <tr>
                     <td>เลขที่ใบขอซื้อ:{{ afbItem.afbId }}</td>
                     <td>ผู้ขอซื้อ:{{ afbItem.userFullname }}</td>
                     <td>ฝ่าย:{{ afbItem.userdepart_name}}</td>
                     <td>หมายเหตุ:{{ afbItem.afb_comment }}</td>
                     <td>วันที่:{{ afbItem.afb_date }}</td>
+=======
+                  <tr *ngIf="userLv == 4 || afbItem.userdepart_id == userdepart_id">
+                    <td>{{ afbItem.afbId }}</td>
+                    <td>{{ afbItem.userFullname }}</td>
+                    <td>{{ afbItem.userdepart_name }}</td>
+                    <td>{{ afbItem.afb_comment }}</td>
+                    <td>{{ afbItem.afb_date }}</td>
+>>>>>>> Stashed changes
                     <td [ngClass]="{'text-warning': afbItem.state_id == 1 || afbItem.state_id == 5 || afbItem.state_id == 11, 'text-success': afbItem.state_id == 2 || afbItem.state_id == 10,'text-danger': afbItem.state_id == 3}">
-                      สถานะ:
+                     
                       <ng-container *ngIf="afbItem.state_id == 1">รออนุมัติ/จากหัวหน้าฝ่าย</ng-container>
                       <ng-container *ngIf="afbItem.state_id == 2">อนุมัติจากหัวหน้าฝ่ายแล้ว</ng-container>
                       <ng-container *ngIf="afbItem.state_id == 3">ใบขอซื้อถูกยกเลิก</ng-container>
@@ -102,10 +228,6 @@
                   </tr>
                 </ng-template>
               </p-table>
-              
             </div>
-            
-            
         </div>
-      </div>
-    </div>
+

@@ -33,7 +33,9 @@ export class RowItemComponent implements OnInit{
   confirm() {
     this.confirmationService.confirm({
         header: 'ต้องการบันทึกหรือไม่?',
-        message: 'โปรดตรวจสอบให้แน่ใจ',
+        acceptLabel:'ยืนยัน',
+        rejectLabel:'ยกเลิก',
+        rejectButtonStyleClass:'p-button-outlined',
         accept: () => {
             const url = 'http://localhost/backend/add_row.php';
             const data = {rowNew:this.rowNew};
@@ -54,7 +56,7 @@ export class RowItemComponent implements OnInit{
             );
         },
         reject: () => {
-            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+            this.messageService.add({ severity: 'error', summary: 'ยกเลิก', detail: 'ยกเลิกการกระทำ', life: 3000 });
         }
     });
 }
@@ -79,11 +81,10 @@ confirm1(event: Event,material_row_id:number) {
   this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: 'ต้องการลบแถววางของหรือไม่?',
-      header: 'Confirmation',
-      icon: 'pi pi-exclamation-triangle',
-      acceptIcon:"none",
-      rejectIcon:"none",
-      rejectButtonStyleClass:"p-button-text",
+      header: 'ทบทวนการกระทำ',
+      acceptLabel:'ยืนยัน',
+      rejectLabel:'ยกเลิก',
+      rejectButtonStyleClass:'p-button-outlined',
       accept: () => {
         const url = 'http://localhost/backend/del_row.php';
         const data = { material_row_id };

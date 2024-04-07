@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MessagesModule } from 'primeng/messages';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -64,7 +65,7 @@ import { PickInHistoryComponent } from './pick-in-history/pick-in-history.compon
 import { PickOutHisComponent } from './pick-out-his/pick-out-his.component';
 import { PickOutReturnComponent } from './pick-out-return/pick-out-return.component';
 import { EditPermisionUserComponent } from './edit-permision-user/edit-permision-user.component';
-
+import { SidebarModule } from 'primeng/sidebar';
 
 import { FileUploadModule } from 'primeng/fileupload';
 import { ImageModule } from 'primeng/image';
@@ -76,6 +77,8 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { DialogMapItemComponent } from './dialog-map-item/dialog-map-item.component';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { DialogEditUserComponent } from './dialog-edit-user/dialog-edit-user.component';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { AfbMenuComponent } from './afb-menu/afb-menu.component';
 
 const routes: Routes = [
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
@@ -101,6 +104,7 @@ const routes: Routes = [
   { path: 'slot', component: SlotItemComponent, canActivate: [AuthGuard] },
   { path: 'row', component: RowItemComponent, canActivate: [AuthGuard] },
   { path: 'test', component: DialogMapItemComponent, canActivate: [AuthGuard] },
+  { path: 'afbmenu', component: AfbMenuComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
@@ -147,6 +151,7 @@ const routes: Routes = [
     DialogEditRowComponent,
     DialogMapItemComponent,
     DialogEditUserComponent,
+    AfbMenuComponent,
     
     
   ],
@@ -183,7 +188,10 @@ const routes: Routes = [
     FileUploadModule,
     ImageModule,
     CheckboxModule,
-    RadioButtonModule
+    RadioButtonModule,
+    TabMenuModule,
+    MessagesModule,
+    SidebarModule
   ],
   exports: [RouterModule],
   providers: [AuthGuard],

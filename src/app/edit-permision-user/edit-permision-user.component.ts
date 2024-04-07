@@ -20,8 +20,6 @@ export class EditPermisionUserComponent implements OnInit{
   password:string='';
   userFname:string='';
   userLname:string='';
-  age:string='';
-  nump:any;
   departList:any[]=[];
   selectedDepart: any;
   searchUser:string='';
@@ -59,13 +57,11 @@ export class EditPermisionUserComponent implements OnInit{
       password: this.password,
       userFname: this.userFname,
       userLname: this.userLname,
-      age: this.age,
-      nump: this.nump,
       selectedDepart: this.selectedDepart,
     }
   
     // ตรวจสอบว่าข้อมูลทุกอย่างถูกกรอกครบถ้วนหรือไม่
-    if (this.username && this.password && this.userFname && this.userLname && this.age && this.nump && this.selectedDepart) {
+    if (this.username && this.password && this.userFname && this.userLname && this.selectedDepart) {
       // ส่งข้อมูลไปยังเซิร์ฟเวอร์เพื่อลงทะเบียน
       this.http.post<any>(url, data).subscribe(res  => {
         if(res && res.status == 'scuess'){
@@ -85,21 +81,20 @@ export class EditPermisionUserComponent implements OnInit{
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: 'ต้องการลบผู้ใช้นี้หรือไม่',
-      header: 'Confirmation',
-      icon: 'pi pi-exclamation-triangle',
-      acceptIcon:"none",
-      rejectIcon:"none",
-      rejectButtonStyleClass:"p-button-text",
+      header: 'ทบทวนการกระทำ',
+      acceptLabel:'ยืนยัน',
+      rejectLabel:'ยกเลิก',
+      rejectButtonStyleClass:'p-button-outlined',
       accept: () => {
         const url = 'http://localhost/backend/del_user.php';
         const data = {user_id}
         this.http.post<any>(url,data).subscribe(res => {
           this.load_user_pic();
         });
-          this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
+          this.messageService.add({ severity: 'info', summary: 'สำเร็จ', detail: 'ลบผู้ใช้เสร็จสิ้น' });
       },
       reject: () => {
-          this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+          this.messageService.add({ severity: 'error', summary: 'ยกเลิก', detail: 'ยกเลิกการกระทำ', life: 3000 });
       }
   });
   }

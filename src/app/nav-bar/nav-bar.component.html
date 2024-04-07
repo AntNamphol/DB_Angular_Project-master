@@ -1,8 +1,11 @@
 
 <div class="card">
-    <p-menubar [model]="items" >
-        <ng-template pTemplate="start">
-            ระบบบริหารจัดการคลังวัสดุและใบสั่งซื้อ
-        </ng-template>
-    </p-menubar>
+
+         <p-menubar [model]="items">
+            <ng-template pTemplate="end">
+                ชื่อผู้ใช้: {{this.userFname}} {{this.userLname}}
+           </ng-template>
+        </p-menubar>
+   
+   
 </div>

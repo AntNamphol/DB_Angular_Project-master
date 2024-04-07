@@ -74,8 +74,13 @@ export class UserReqItemComponent implements OnInit{
       unit_name: item.unit_name,
       pic_path:item.pic_path
     });
+<<<<<<< Updated upstream
     
     this.messageService.add({ severity: 'success', summary: 'Success', detail: 'เพิ่มวัสดุลงตะกร้าแล้ว' });
+=======
+    console.log(item);
+    this.messageService.add({ severity: 'success', summary: 'สำเร็จ', detail: 'เพิ่มวัสดุลงตะกร้าแล้ว' });
+>>>>>>> Stashed changes
   }
 
 
@@ -84,6 +89,9 @@ export class UserReqItemComponent implements OnInit{
     this.confirmationService.confirm({
       header: 'คุณแน่ใจที่จะบันทึกใช่ไหม?',
       message: 'โปรดตรวจสอบให้แน่ใจ',
+      acceptLabel:'ยืนยัน',
+      rejectLabel:'ยกเลิก',
+      rejectButtonStyleClass:'p-button-outlined',
       accept: () => {
         const dataArray = [];
     for (const item of this.selectedItems) {
@@ -109,7 +117,7 @@ export class UserReqItemComponent implements OnInit{
       (response) => {
         console.log('ตอบกลับจากเซิร์ฟเวอร์:', response);
         // ทำการประมวลผลตอบกลับจากเซิร์ฟเวอร์ตามความเหมาะสม
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'บันทึกใบเบิกวัสดุเสร็จสิ้น' });
+        this.messageService.add({ severity: 'success', summary: 'สำเร็จ', detail: 'บันทึกใบเบิกวัสดุเสร็จสิ้น' });
         const timeout = 2000;
         setTimeout(() => {
           this.router.navigate(['poh']);
@@ -122,7 +130,7 @@ export class UserReqItemComponent implements OnInit{
     );
       },
       reject: () => {
-          this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+          this.messageService.add({ severity: 'error', summary: 'ยกเลิก', detail: 'ยกเลิกการกระทำ', life: 3000 });
       }
   });
 

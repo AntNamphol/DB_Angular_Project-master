@@ -29,11 +29,10 @@ export class PickOutReturnComponent implements OnInit{
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: 'ยืนยันข้อมูลหรือไม่',
-      header: 'Confirmation',
-      icon: 'pi pi-exclamation-triangle',
-      acceptIcon:"none",
-      rejectIcon:"none",
-      rejectButtonStyleClass:"p-button-text",
+      header: 'ทบทวนการกระทำ',
+      acceptLabel:'ยืนยัน',
+      rejectLabel:'ยกเลิก',
+      rejectButtonStyleClass:'p-button-outlined',
       accept: () => {
         console.log(po);
 
@@ -41,13 +40,13 @@ export class PickOutReturnComponent implements OnInit{
           const url ='http://localhost/backend/con_return.php';
           const data = {po};
           this.http.post<any>(url,data).subscribe( res =>{
-            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted' });
+            this.messageService.add({ severity: 'info', summary: 'สำเร็จ', detail: 'รับคืนวัสดุเสร็จสิ้น' });
             window.location.reload();
           });
 
       },
       reject: () => {
-          this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+          this.messageService.add({ severity: 'error', summary: 'ยกเลิก', detail: 'ยกเลิกการกระทำ', life: 3000 });
       }
   });
   }

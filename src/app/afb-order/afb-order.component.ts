@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { ConfirmationService, MessageService, ConfirmEventType } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+
 
 
 interface Item {
@@ -36,16 +37,42 @@ export class AfbOrderComponent implements OnInit {
   }
 
   addItem(item: any) {
-    this.selectedItems.push({
-      code: item.material_id, // เพิ่ม material_id ที่ได้รับมาจาก item
-      name: item.material_name,
-      quantity: item.quantity,
-      unit_name: item.unit_name,
-      pic_path:item.pic_path
+    const url = 'http://localhost/backend/selectcheck_item.php';
+
+    const items = {item};
+    this.http.post<any>(url,items).subscribe(res =>{
+      if(res && res.status == 'have'){
+        this.confirmationService.confirm({
+          header: 'วันดุนี้มีการขอซื้อแล้ววันนี้',
+          message: 'ต้องการขอซื้ออีกครั้งหรือไม่',
+          acceptLabel:'ยืนยัน',
+          rejectLabel:'ยกเลิก',
+          rejectButtonStyleClass:'p-button-outlined',
+          accept: () => {
+            this.selectedItems.push({
+              code: item.material_id, // เพิ่ม material_id ที่ได้รับมาจาก item
+              name: item.material_name,
+              quantity: item.quantity,
+              unit_name: item.unit_name,
+              pic_path:item.pic_path,
+            });
+              this.messageService.add({ severity: 'success', summary: 'ยันยัน', detail: 'เพิ่มวัสดุลงตะกร้าแล้ว', life: 3000 });
+          },
+          reject: () => {
+              this.messageService.add({ severity: 'error', summary: 'ยกเลิก', detail: 'ยกเลิกการเพิ่มวัสดุลงตะกร้าแล้ว', life: 3000 });
+          }
+      });
+      }else{
+        this.selectedItems.push({
+          code: item.material_id, // เพิ่ม material_id ที่ได้รับมาจาก item
+          name: item.material_name,
+          quantity: item.quantity,
+          unit_name: item.unit_name,
+          pic_path:item.pic_path,
+        });
+        this.messageService.add({ severity: 'success', summary: 'ยันยัน', detail: 'เพิ่มวัสดุลงตะกร้าแล้ว', life: 3000 });
+      }
     });
-    
-    console.log(item.unit_name);
-    this.messageService.add({ severity: 'success', summary: 'Success', detail: 'เพิ่มวัสดุลงตะกร้าแล้ว' });
   }
 
   editItem(item: any) {
@@ -70,9 +97,11 @@ export class AfbOrderComponent implements OnInit {
     this.confirmationService.confirm({
       header: 'คุณแน่ใจที่จะบันทึกใช่ไหม?',
       message: 'โปรดตรวจสอบให้แน่ใจ',
+      acceptLabel:'ยืนยัน',
+      rejectLabel:'ยกเลิก',
       accept: () => {
         const dataArray = [];
-    for (const item of this.selectedItems) {
+     for (const item of this.selectedItems) {
       const { code, name, quantity,selectedUnit } = item;
 
       const data = {
@@ -94,11 +123,9 @@ export class AfbOrderComponent implements OnInit {
       (response) => {
         console.log('ตอบกลับจากเซิร์ฟเวอร์:', response);
         // ทำการประมวลผลตอบกลับจากเซิร์ฟเวอร์ตามความเหมาะสม
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'บันทึกใบขอซื้อเรียบร้อยแล้ว' });
-        const timeout = 2000;
-        setTimeout(() => {
+        this.messageService.add({ severity: 'success', summary: 'บันทึก', detail: 'บันทึกใบขอซื้อเรียบร้อยแล้ว' });
           this.router.navigate(['afbstate']);
-        }, timeout);
+
       },
       (error) => {
         console.error('เกิดข้อผิดพลาดในการส่งข้อมูล:', error);
@@ -107,7 +134,7 @@ export class AfbOrderComponent implements OnInit {
     );
       },
       reject: () => {
-          this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+          this.messageService.add({ severity: 'error', summary: 'ยกเลิก', detail: 'ยกเลิกกรบันทึกใบขอซื้อ', life: 3000 });
       }
   });
 

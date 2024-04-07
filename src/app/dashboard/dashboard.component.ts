@@ -26,6 +26,12 @@ export class DashboardComponent implements OnInit {
   prd:any;
   prdNoy:any;
   lorRub:any;
+<<<<<<< Updated upstream
+=======
+  userId:any;
+  afbData:any;
+  prdMak:any;
+>>>>>>> Stashed changes
   constructor( private http:HttpClient) {}
 
   ngOnInit(): void {
@@ -48,6 +54,7 @@ export class DashboardComponent implements OnInit {
       this.load_prd();
       this.load_prdnoy();
       this.load_lorRub();
+      this.load_prdmak();
     }
     
 
@@ -88,6 +95,12 @@ export class DashboardComponent implements OnInit {
   load_prdnoy(){
     this.http.get('http://localhost/backend/select_po_numrow_noy.php').subscribe(res =>{
       this.prdNoy = res;
+      console.log(this.afb);
+    });
+  }
+  load_prdmak(){
+    this.http.get('http://localhost/backend/select_po_numrow_mak.php').subscribe(res =>{
+      this.prdMak = res;
       console.log(this.afb);
     });
   }

@@ -46,7 +46,7 @@
                     <td>{{po.unit_name}}</td>
                 
                         <td [ngClass]="{'text-warning': po.state_id == 15, 'text-success': po.state_id == 14,'text-danger': po.state_id == 3}">
-                            สถานะ:
+                    
                             <ng-container *ngIf="po.state_id == 14">เบิกออกเสร็จสิ้น</ng-container>
                             <ng-container *ngIf="po.state_id == 15">รอคืนวัสดุ</ng-container>
 

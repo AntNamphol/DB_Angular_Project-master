@@ -2,9 +2,6 @@
 <br>
 <p-toast></p-toast>
 <p-confirmDialog></p-confirmDialog>
-<div class="container">
-    <div class="card">
-      <div class="card-header">
         <p-table [value]="[{}]" [responsiveLayout]="'stack'">
             <ng-template pTemplate="body">
                 <tr>
@@ -52,10 +49,10 @@
             </div>
         </p-dialog>
         
-      </div>
-      <div class="card-body">
+      <div class="card-body" *ngIf="searchText">
         <div class="form-group">
-            <p-table [value]="filteredPrdList" *ngIf="searchText" responsiveLayout="stack" [breakpoint]="'960px'">
+            <h3>รายการวัสดุที่ค้นหา</h3>
+            <p-table [value]="filteredPrdList"  responsiveLayout="stack" [breakpoint]="'960px'">
                 <ng-template pTemplate="header" let-colums>
                     <tr>
                         <th>รหัสวัสดุ</th>
@@ -95,7 +92,12 @@
                     </tr>
                 </ng-template>
             </p-table>
-
+            </div>
+        </div>
+        
+<br>      <div class="card-body">
+    <div class="form-group">
+        <h3 *ngIf="searchText">รายการวัสดุในคลังทั้งหมด</h3>
             <p-table [value]="prdList" responsiveLayout="stack" [breakpoint]="'960px'">
                 <ng-template pTemplate="header" let-colums>
                     <tr>
@@ -142,5 +144,5 @@
             
         </div>
       </div>
-    </div>
-  </div>
+
+

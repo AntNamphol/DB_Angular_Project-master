@@ -82,11 +82,10 @@ export class ProductListComponent implements OnInit{
     this.confirmationService.confirm({
         target: event.target as EventTarget,
         message: 'ต้องการลบวัสดุชิ้นนี้ออกจากคลังหรือไม่?',
-        header: 'Confirmation',
-        icon: 'pi pi-exclamation-triangle',
-        acceptIcon:"none",
-        rejectIcon:"none",
-        rejectButtonStyleClass:"p-button-text",
+        header: 'ทบทวนการกระทำ',
+        acceptLabel:'ยืนยัน',
+        rejectLabel:'ยกเลิก',
+        rejectButtonStyleClass:'p-button-outlined',
         accept: () => {
           const url = 'http://localhost/backend/del_prd.php';
           const data = { material_id };
@@ -96,12 +95,12 @@ export class ProductListComponent implements OnInit{
               this.load_prd();
               this.getProductList();
             } else {
-              this.messageService.add({ severity: 'error', summary: 'Error', detail: 'วัสดุนี้มีการใช้งานอยู่', life: 3000 });
+              this.messageService.add({ severity: 'error', summary: 'เกิดข้อผิดพลาด', detail: 'วัสดุนี้มีการใช้งานอยู่', life: 3000 });
             }
           });
         },
         reject: () => {
-          this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'ยกเลิกการกระทำ', life: 3000 });
+          this.messageService.add({ severity: 'error', summary: 'ยกเลิก', detail: 'ยกเลิกการกระทำ', life: 3000 });
         }
     });
   }
@@ -152,7 +151,7 @@ export class ProductListComponent implements OnInit{
           this.load_prd();
           this.visible = false;
         }else{
-          this.messageService.add({ severity: 'error', summary: 'ล้มเหลว', detail: 'มีวัสดุนี้อยู่แล้ว', life: 3000 });
+          this.messageService.add({ severity: 'error', summary: 'เกิดข้อผิดพลาด', detail: 'มีวัสดุนี้อยู่แล้ว', life: 3000 });
         }
        
       },
